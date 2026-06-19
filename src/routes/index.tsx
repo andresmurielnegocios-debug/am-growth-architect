@@ -736,7 +736,7 @@ function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><a href={WA} className="hover:text-gold">+57 324 448 2657</a></li>
               <li>WhatsApp directo</li>
-              <li>Bogotá · Colombia</li>
+              <li>Cali · Colombia</li>
             </ul>
           </div>
           <div>
