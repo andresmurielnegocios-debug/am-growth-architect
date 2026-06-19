@@ -401,16 +401,16 @@ function Services() {
 
 /* ───────────────── PLANS ───────────────── */
 const plans = [
-  { badge: "Bronze", name: "Bronze Growth", cop: "$900.000", usd: "USD $265", target: "Ticket $30K–$150K",
+  { badge: "Bronze", name: "Bronze Growth", cop: "$900.000", usd: "USD $265", target: "Recomendado para negocios con ventas entre $30.000 y $150.000 COP",
     features: ["1 video UGC estratégico", "1 video directo con embudo", "1 carrusel de alto impacto", "2 imágenes estratégicas", "Meta Ads", "Seguimiento WhatsApp", "1 reporte mensual", "1 reunión estratégica"],
     ideal: "Barberías · Cafeterías · Florerías · Salones" },
-  { badge: "Silver", name: "Silver Growth", cop: "$1.400.000", usd: "USD $412", target: "Ticket $150K–$300K",
+  { badge: "Silver", name: "Silver Growth", cop: "$1.400.000", usd: "USD $412", target: "Recomendado para negocios con ventas entre $150.000 y $300.000 COP",
     features: ["2 videos UGC estratégicos", "2 videos directos con embudo", "3 carruseles de alto impacto", "2 imágenes estratégicas", "Meta Ads", "Seguimiento WhatsApp", "2 reportes quincenales", "1 reunión estratégica"],
     ideal: "Odontólogos · Gimnasios · Clínicas · Abogados" },
-  { badge: "Gold", name: "Gold Growth", cop: "$2.300.000", usd: "USD $676", target: "Ticket $300K–$600K", featured: true,
+  { badge: "Gold", name: "Gold Growth", cop: "$2.300.000", usd: "USD $676", target: "Recomendado para negocios con ventas entre $300.000 y $600.000 COP", featured: true,
     features: ["3 videos UGC + 2 directos", "1 Reel con música viral", "3 carruseles de alto impacto", "Bold Offer de alta conversión", "Meta Ads + remarketing", "Seguimiento WhatsApp", "2 reportes quincenales", "1 reunión estratégica"],
     ideal: "Constructoras · Clínicas · Marcas personales" },
-  { badge: "Black", name: "Black Growth Partner", cop: "$4.500.000", usd: "USD $1.324", target: "Ticket > $600K", intro: "Todo lo del Gold más:",
+  { badge: "Black", name: "Black Growth Partner", cop: "$4.500.000", usd: "USD $1.324", target: "Recomendado para negocios con ventas superiores a $600.000 COP", intro: "Todo lo del Gold más:",
     features: ["Contenido orgánico semanal", "Estrategia de historias", "Landing Page profesional", "Automatización WhatsApp", "Dashboard de métricas", "Auditoría mensual", "Optimización continua"],
     ideal: "Clínicas premium · Franquicias · Alto valor" },
 ];
