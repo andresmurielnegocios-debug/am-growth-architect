@@ -2,11 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "motion/react";
 import {
-  Megaphone, Filter, LayoutTemplate, Workflow, FileText, TrendingUp,
-  Check, X, Plus, Minus, MessageCircle, ArrowRight, ArrowUpRight, Calendar, Video,
-  Edit3, Film, Bot, Sparkles, Search, Play, ChevronLeft, ChevronRight, Instagram,
+  LayoutTemplate, Check, Plus, Minus, ArrowRight, ArrowUpRight, Calendar, Video,
+  Edit3, Film, Bot, Sparkles, Play, ChevronLeft, ChevronRight, Instagram, Zap,
 } from "lucide-react";
 import andresAsset from "@/assets/andres-muriel.png.asset.json";
+
+/* WhatsApp glyph (official-style) */
+function WhatsAppIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} fill="currentColor" aria-hidden>
+      <path d="M19.11 17.21c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.2 5.07 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35zM16.02 5.33c-5.9 0-10.7 4.8-10.7 10.7 0 1.89.5 3.74 1.45 5.36L5 27l5.78-1.51a10.66 10.66 0 0 0 5.24 1.37h.01c5.89 0 10.7-4.8 10.7-10.7s-4.81-10.83-10.71-10.83zm6.27 16.97a8.84 8.84 0 0 1-6.27 2.59h-.01a8.86 8.86 0 0 1-4.5-1.23l-.32-.19-3.34.87.89-3.25-.21-.33A8.85 8.85 0 0 1 7.18 16.03c0-4.88 3.97-8.85 8.85-8.85a8.86 8.86 0 0 1 8.85 8.85c0 4.88-3.97 8.85-8.85 8.85h.26z"/>
+    </svg>
+  );
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -69,7 +77,7 @@ function Nav() {
         <a href="#inicio" className="flex items-center gap-2 text-ink">
           <span className="font-display font-extrabold text-xl tracking-tightest">muriel<span className="text-gold">.</span></span>
         </a>
-        <div className="hidden md:flex items-center justify-center gap-9 text-[13px] text-ink/80 font-medium">
+        <div className="hidden md:flex items-center justify-center gap-9 text-[13px] text-ink font-semibold">
           {[
             ["Inicio", "#inicio"],
             ["Sobre mí", "#sobre-mi"],
@@ -77,20 +85,15 @@ function Nav() {
             ["Planes", "#planes"],
             ["Contacto", "#contacto"],
           ].map(([l, h]) => (
-            <a key={l} href={h} className="hover:text-ink relative group">
+            <a key={l} href={h} className="hover:text-gold transition-colors relative group">
               {l}
-              <span className="absolute -bottom-1 left-0 w-0 group-hover:w-full h-px bg-ink transition-all duration-300" />
+              <span className="absolute -bottom-1 left-0 w-0 group-hover:w-full h-px bg-gold transition-all duration-300" />
             </a>
           ))}
         </div>
-        <div className="hidden md:flex items-center gap-3 bg-white/70 border border-black/5 rounded-full pl-4 pr-1 py-1 w-[260px]">
-          <Search className="w-3.5 h-3.5 text-ink/50" />
-          <input
-            placeholder="Buscar estrategia…"
-            className="bg-transparent flex-1 text-xs text-ink placeholder:text-ink/40 outline-none py-1.5"
-          />
-          <button className="text-[11px] font-semibold bg-ink text-cream rounded-full px-3 py-1.5">Ir</button>
-        </div>
+        <a href={WA} target="_blank" rel="noreferrer" className="hidden md:inline-flex items-center gap-2 bg-ink text-cream rounded-full px-4 py-2 text-xs font-semibold hover:bg-ink/90 transition">
+          Hablar conmigo <ArrowUpRight className="w-3.5 h-3.5" />
+        </a>
       </div>
     </motion.nav>
   );
@@ -153,23 +156,8 @@ function Hero() {
               </a>
             </motion.div>
 
-            <motion.div
-              initial="hidden" animate="show" custom={3} variants={fadeUp}
-              className="mt-14 flex flex-wrap items-end gap-10"
-            >
-              <div>
-                <div className="text-[11px] uppercase tracking-[0.25em] text-ink/55 mb-2">Negocios atendidos</div>
-                <div className="flex items-center gap-3">
-                  <div className="flex -space-x-2">
-                    {[1,2,3,4].map(i => (
-                      <div key={i} className="w-7 h-7 rounded-full border-2 border-cream bg-gradient-to-br from-ink/30 to-ink/60" />
-                    ))}
-                  </div>
-                  <span className="font-display font-extrabold text-2xl tracking-tightest">+50</span>
-                </div>
-              </div>
-            </motion.div>
           </div>
+
 
           {/* Right image with cream stat */}
           <div className="relative lg:-mr-6">
@@ -186,19 +174,8 @@ function Hero() {
               <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent" />
             </motion.div>
 
-            {/* Floating stat card */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1, duration: 0.7 }}
-              className="absolute left-0 lg:-left-6 bottom-24 lg:bottom-32 bg-cream/95 backdrop-blur border border-ink/10 rounded-2xl p-5 w-[230px] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]"
-            >
-              <div className="text-3xl font-display font-extrabold tracking-tightest text-ink">3.8×</div>
-              <div className="text-[11px] uppercase tracking-[0.2em] text-ink/55">ROAS promedio</div>
-              <p className="mt-3 text-[12px] leading-snug text-ink/70">
-                Sistemas que convierten atención en oportunidades reales — no en likes.
-              </p>
-            </motion.div>
+
+
 
             {/* Round badge */}
             <motion.div
@@ -250,7 +227,7 @@ function Marquee() {
     <section className="bg-cream border-t border-ink/10 py-6 overflow-hidden">
       <div className="flex marquee gap-12 whitespace-nowrap">
         {row.map((t, i) => (
-          <div key={i} className="flex items-center gap-12 text-ink/40 font-display font-extrabold tracking-tightest text-2xl">
+          <div key={i} className="flex items-center gap-12 text-ink font-display font-extrabold tracking-tightest text-2xl">
             <span>{t}</span>
             <span className="text-gold">✦</span>
           </div>
@@ -333,9 +310,6 @@ function About() {
             <a href={WA} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-gold text-primary-foreground px-5 py-3 rounded-full text-sm font-semibold hover:opacity-90 transition">
               Hablar conmigo <ArrowRight className="w-4 h-4" />
             </a>
-            <a href="#servicios" className="inline-flex items-center gap-2 border border-white/15 text-foreground px-5 py-3 rounded-full text-sm font-semibold hover:bg-white/5 transition">
-              <Play className="w-3.5 h-3.5 fill-current" /> Ver método
-            </a>
           </motion.div>
         </div>
       </div>
@@ -370,11 +344,12 @@ function Services() {
               SERVICIOS<br />PREMIUM.
             </h2>
           </div>
-          <div className="hidden md:flex items-center gap-2">
-            <button onClick={() => go(-1)} disabled={index === 0} className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 disabled:opacity-30 transition">
+          <div className="hidden md:flex items-center gap-3">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground select-none">Deslizar →</span>
+            <button onClick={() => go(-1)} disabled={index === 0} aria-label="Anterior" className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 hover:border-gold/50 disabled:opacity-30 transition">
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <button onClick={() => go(1)} disabled={index >= max} className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 disabled:opacity-30 transition">
+            <button onClick={() => go(1)} disabled={index >= max} aria-label="Siguiente" className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 hover:border-gold/50 disabled:opacity-30 transition">
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -425,16 +400,16 @@ function Services() {
 
 /* ───────────────── PLANS ───────────────── */
 const plans = [
-  { badge: "Bronze", name: "Bronze Growth", cop: "$900.000", usd: "USD $265", target: "Ticket $30K–$150K",
+  { badge: "Bronze", name: "Bronze Growth", cop: "$900.000", usd: "USD $265", target: "Recomendado para negocios con ventas entre $30.000 y $150.000 COP",
     features: ["1 video UGC estratégico", "1 video directo con embudo", "1 carrusel de alto impacto", "2 imágenes estratégicas", "Meta Ads", "Seguimiento WhatsApp", "1 reporte mensual", "1 reunión estratégica"],
     ideal: "Barberías · Cafeterías · Florerías · Salones" },
-  { badge: "Silver", name: "Silver Growth", cop: "$1.400.000", usd: "USD $412", target: "Ticket $150K–$300K",
+  { badge: "Silver", name: "Silver Growth", cop: "$1.400.000", usd: "USD $412", target: "Recomendado para negocios con ventas entre $150.000 y $300.000 COP",
     features: ["2 videos UGC estratégicos", "2 videos directos con embudo", "3 carruseles de alto impacto", "2 imágenes estratégicas", "Meta Ads", "Seguimiento WhatsApp", "2 reportes quincenales", "1 reunión estratégica"],
     ideal: "Odontólogos · Gimnasios · Clínicas · Abogados" },
-  { badge: "Gold", name: "Gold Growth", cop: "$2.300.000", usd: "USD $676", target: "Ticket $300K–$600K", featured: true,
+  { badge: "Gold", name: "Gold Growth", cop: "$2.300.000", usd: "USD $676", target: "Recomendado para negocios con ventas entre $300.000 y $600.000 COP", featured: true,
     features: ["3 videos UGC + 2 directos", "1 Reel con música viral", "3 carruseles de alto impacto", "Bold Offer de alta conversión", "Meta Ads + remarketing", "Seguimiento WhatsApp", "2 reportes quincenales", "1 reunión estratégica"],
     ideal: "Constructoras · Clínicas · Marcas personales" },
-  { badge: "Black", name: "Black Growth Partner", cop: "$4.500.000", usd: "USD $1.324", target: "Ticket > $600K", intro: "Todo lo del Gold más:",
+  { badge: "Black", name: "Black Growth Partner", cop: "$4.500.000", usd: "USD $1.324", target: "Recomendado para negocios con ventas superiores a $600.000 COP", intro: "Todo lo del Gold más:",
     features: ["Contenido orgánico semanal", "Estrategia de historias", "Landing Page profesional", "Automatización WhatsApp", "Dashboard de métricas", "Auditoría mensual", "Optimización continua"],
     ideal: "Clínicas premium · Franquicias · Alto valor" },
 ];
@@ -470,7 +445,7 @@ function Plans() {
               )}
               <div className="text-[10px] uppercase tracking-[0.3em] text-gold mb-2">{p.badge}</div>
               <h3 className="font-display font-extrabold text-2xl tracking-tightest mb-1">{p.name}</h3>
-              <p className="text-xs text-muted-foreground mb-6 min-h-[32px]">{p.target}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-6 min-h-[56px]">{p.target}</p>
 
               <div className="mb-6">
                 <div className="text-3xl font-display font-extrabold text-gold tracking-tightest">{p.cop}<span className="text-xs text-muted-foreground font-medium"> COP / mes</span></div>
@@ -488,6 +463,16 @@ function Plans() {
                 ))}
               </ul>
 
+              <div className="rounded-2xl border border-gold/30 bg-gold/5 p-4 mb-5">
+                <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-gold font-bold mb-1.5">
+                  <Zap className="w-3.5 h-3.5" /> Fondo de Optimización Creativa
+                </div>
+                <div className="text-sm text-foreground/90 font-semibold">+ $100.000 COP <span className="text-xs text-muted-foreground font-normal">(USD $29) · opcional</span></div>
+                <p className="text-[11px] text-muted-foreground leading-snug mt-1">
+                  Reserva mensual para refrescar creativos cuando la estrategia lo requiere.
+                </p>
+              </div>
+
               <div className="text-xs text-muted-foreground border-t border-white/5 pt-4 mb-5">
                 <div className="font-semibold text-foreground/80 mb-1.5">Ideal para:</div>
                 <div>{p.ideal}</div>
@@ -502,10 +487,6 @@ function Plans() {
             </motion.div>
           ))}
         </div>
-
-        <p className="mt-10 text-xs text-muted-foreground max-w-3xl">
-          <span className="text-gold font-semibold">Fondo de Optimización Creativa:</span> $100.000 COP (USD $29). Reserva opcional para refrescar creativos cuando la estrategia lo requiere.
-        </p>
       </div>
     </section>
   );
@@ -754,7 +735,7 @@ function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><a href={WA} className="hover:text-gold">+57 324 448 2657</a></li>
               <li>WhatsApp directo</li>
-              <li>Bogotá · Colombia</li>
+              <li>Cali · Colombia</li>
             </ul>
           </div>
           <div>
@@ -805,9 +786,9 @@ function FloatingWA() {
       animate={{ scale: 1, rotate: 0 }}
       transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 15 }}
       whileHover={{ scale: 1.08 }}
-      className="fixed bottom-6 right-6 z-50 bg-gold text-primary-foreground w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(212,175,55,0.6)]"
+      className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(37,211,102,0.6)]"
     >
-      <MessageCircle className="w-6 h-6 fill-current" />
+      <WhatsAppIcon className="w-7 h-7" />
     </motion.a>
   );
 }
