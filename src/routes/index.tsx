@@ -26,7 +26,7 @@ const WA = "https://wa.me/573244482657";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 } }),
+  show: (i: number = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const, delay: i * 0.08 } }),
 };
 
 function Page() {
