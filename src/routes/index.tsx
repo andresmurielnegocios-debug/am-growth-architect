@@ -6,7 +6,7 @@ import {
   Edit3, Film, Bot, Sparkles,
 } from "lucide-react";
 import andresAsset from "@/assets/andres-muriel.png.asset.json";
-import logoAsset from "@/assets/am-logo.png.asset.json";
+import logoAsset from "@/assets/am-logo-v2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -56,7 +56,7 @@ function Nav() {
     <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/80 backdrop-blur-xl border-b border-border" : "bg-transparent"}`}>
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="#inicio" className="flex items-center gap-2">
-          <img src={logoAsset.url} alt="AM" className="h-9 w-9 object-contain" />
+          <img src={logoAsset.url} alt="AM" className="h-7 w-auto object-contain" />
           <span className="hidden sm:block text-sm font-semibold tracking-wide">ANDRÉS MURIEL</span>
         </a>
         <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
@@ -560,7 +560,7 @@ function Footer() {
     <footer className="border-t border-border py-16 px-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
         <div className="flex items-center gap-4">
-          <img src={logoAsset.url} alt="AM" className="h-12 w-12 object-contain" />
+          <img src={logoAsset.url} alt="AM" className="h-10 w-auto object-contain" />
           <div>
             <div className="font-bold text-lg">Andrés Muriel</div>
             <div className="text-sm text-muted-foreground">Estratega Digital & Growth Partner</div>
