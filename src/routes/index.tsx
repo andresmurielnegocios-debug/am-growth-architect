@@ -148,23 +148,8 @@ function Hero() {
               </a>
             </motion.div>
 
-            <motion.div
-              initial="hidden" animate="show" custom={3} variants={fadeUp}
-              className="mt-14 flex flex-wrap items-end gap-10"
-            >
-              <div>
-                <div className="text-[11px] uppercase tracking-[0.25em] text-ink/55 mb-2">Negocios atendidos</div>
-                <div className="flex items-center gap-3">
-                  <div className="flex -space-x-2">
-                    {[1,2,3,4].map(i => (
-                      <div key={i} className="w-7 h-7 rounded-full border-2 border-cream bg-gradient-to-br from-ink/30 to-ink/60" />
-                    ))}
-                  </div>
-                  <span className="font-display font-extrabold text-2xl tracking-tightest">+50</span>
-                </div>
-              </div>
-            </motion.div>
           </div>
+
 
           {/* Right image with cream stat */}
           <div className="relative lg:-mr-6">
