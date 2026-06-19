@@ -272,7 +272,7 @@ function About() {
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9, ease: "easeOut" as const }}
             className="relative aspect-[4/5] max-w-md mx-auto rounded-[40px] overflow-hidden border border-white/5"
           >
             <img src={andresAsset.url} alt="Andrés Muriel" className="w-full h-full object-cover grayscale" />
@@ -679,7 +679,7 @@ function FAQ() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      transition={{ duration: 0.35, ease: "easeOut" as const }}
                       className="overflow-hidden"
                     >
                       <p className="pb-6 text-muted-foreground leading-relaxed text-base max-w-2xl">{f.a}</p>
