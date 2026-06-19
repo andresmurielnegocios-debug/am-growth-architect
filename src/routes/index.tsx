@@ -311,9 +311,6 @@ function About() {
             <a href={WA} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-gold text-primary-foreground px-5 py-3 rounded-full text-sm font-semibold hover:opacity-90 transition">
               Hablar conmigo <ArrowRight className="w-4 h-4" />
             </a>
-            <a href="#servicios" className="inline-flex items-center gap-2 border border-white/15 text-foreground px-5 py-3 rounded-full text-sm font-semibold hover:bg-white/5 transition">
-              <Play className="w-3.5 h-3.5 fill-current" /> Ver método
-            </a>
           </motion.div>
         </div>
       </div>
