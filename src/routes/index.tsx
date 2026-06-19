@@ -4,9 +4,18 @@ import { motion, useScroll, useTransform, useInView, AnimatePresence } from "mot
 import {
   Megaphone, Filter, LayoutTemplate, Workflow, FileText, TrendingUp,
   Check, X, Plus, Minus, MessageCircle, ArrowRight, ArrowUpRight, Calendar, Video,
-  Edit3, Film, Bot, Sparkles, Search, Play, ChevronLeft, ChevronRight, Instagram,
+  Edit3, Film, Bot, Sparkles, Search, Play, ChevronLeft, ChevronRight, Instagram, Zap,
 } from "lucide-react";
 import andresAsset from "@/assets/andres-muriel.png.asset.json";
+
+/* WhatsApp glyph (official-style) */
+function WhatsAppIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} fill="currentColor" aria-hidden>
+      <path d="M19.11 17.21c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.2 5.07 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35zM16.02 5.33c-5.9 0-10.7 4.8-10.7 10.7 0 1.89.5 3.74 1.45 5.36L5 27l5.78-1.51a10.66 10.66 0 0 0 5.24 1.37h.01c5.89 0 10.7-4.8 10.7-10.7s-4.81-10.83-10.71-10.83zm6.27 16.97a8.84 8.84 0 0 1-6.27 2.59h-.01a8.86 8.86 0 0 1-4.5-1.23l-.32-.19-3.34.87.89-3.25-.21-.33A8.85 8.85 0 0 1 7.18 16.03c0-4.88 3.97-8.85 8.85-8.85a8.86 8.86 0 0 1 8.85 8.85c0 4.88-3.97 8.85-8.85 8.85h.26z"/>
+    </svg>
+  );
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
