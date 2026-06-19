@@ -345,11 +345,12 @@ function Services() {
               SERVICIOS<br />PREMIUM.
             </h2>
           </div>
-          <div className="hidden md:flex items-center gap-2">
-            <button onClick={() => go(-1)} disabled={index === 0} className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 disabled:opacity-30 transition">
+          <div className="hidden md:flex items-center gap-3">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground select-none">Deslizar →</span>
+            <button onClick={() => go(-1)} disabled={index === 0} aria-label="Anterior" className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 hover:border-gold/50 disabled:opacity-30 transition">
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <button onClick={() => go(1)} disabled={index >= max} className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 disabled:opacity-30 transition">
+            <button onClick={() => go(1)} disabled={index >= max} aria-label="Siguiente" className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 hover:border-gold/50 disabled:opacity-30 transition">
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
