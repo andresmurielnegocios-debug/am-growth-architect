@@ -166,19 +166,8 @@ function Hero() {
               <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent" />
             </motion.div>
 
-            {/* Floating stat card */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1, duration: 0.7 }}
-              className="absolute left-0 lg:-left-6 bottom-24 lg:bottom-32 bg-cream/95 backdrop-blur border border-ink/10 rounded-2xl p-5 w-[230px] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]"
-            >
-              <div className="text-3xl font-display font-extrabold tracking-tightest text-ink">3.8×</div>
-              <div className="text-[11px] uppercase tracking-[0.2em] text-ink/55">ROAS promedio</div>
-              <p className="mt-3 text-[12px] leading-snug text-ink/70">
-                Sistemas que convierten atención en oportunidades reales — no en likes.
-              </p>
-            </motion.div>
+
+
 
             {/* Round badge */}
             <motion.div
