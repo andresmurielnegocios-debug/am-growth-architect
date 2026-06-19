@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from "motion/react";
 import {
   Megaphone, Filter, LayoutTemplate, Workflow, FileText, TrendingUp,
-  Check, X, Plus, Minus, MessageCircle, ArrowRight, Calendar, Video,
-  Edit3, Film, Bot, Sparkles,
+  Check, X, Plus, Minus, MessageCircle, ArrowRight, ArrowUpRight, Calendar, Video,
+  Edit3, Film, Bot, Sparkles, Search, Play, ChevronLeft, ChevronRight, Instagram,
 } from "lucide-react";
 import andresAsset from "@/assets/andres-muriel.png.asset.json";
-
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,20 +24,23 @@ export const Route = createFileRoute("/")({
 
 const WA = "https://wa.me/573244482657";
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: (i: number = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const, delay: i * 0.08 } }),
+};
+
 function Page() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans">
       <Nav />
       <Hero />
-      <Problem />
-      <Solution />
-      <HowItWorks />
+      <Marquee />
       <About />
-      <Plans />
       <Services />
-      <IdealClient />
+      <Plans />
+      <Possibilities />
+      <Testimonials />
       <FAQ />
-      <NotDo />
       <FinalCTA />
       <Footer />
       <FloatingWA />
@@ -45,288 +48,419 @@ function Page() {
   );
 }
 
+/* ───────────────── NAV ───────────────── */
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 20);
+    const h = () => setScrolled(window.scrollY > 40);
     h(); window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
   return (
-    <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/80 backdrop-blur-xl border-b border-border" : "bg-transparent"}`}>
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#inicio" className="flex items-center gap-2">
-          <span className="text-sm font-semibold tracking-wide">ANDRÉS MURIEL</span>
+    <motion.nav
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+        scrolled ? "bg-cream/90 backdrop-blur-xl border-b border-black/5" : "bg-cream"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 h-16 grid grid-cols-[auto_1fr_auto] items-center gap-6">
+        <a href="#inicio" className="flex items-center gap-2 text-ink">
+          <span className="font-display font-extrabold text-xl tracking-tightest">muriel<span className="text-gold">.</span></span>
         </a>
-        <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-          <a href="#inicio" className="hover:text-foreground transition">Inicio</a>
-          <a href="#planes" className="hover:text-foreground transition">Planes</a>
-          <a href="#servicios" className="hover:text-foreground transition">Servicios</a>
-          <a href="#faq" className="hover:text-foreground transition">FAQ</a>
-        </div>
-        <a href={WA} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-gold text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition">
-          Hablar ahora
-        </a>
-      </div>
-    </nav>
-  );
-}
-
-function Hero() {
-  return (
-    <section id="inicio" className="relative pt-32 pb-24 md:pt-40 md:pb-32 px-6">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <div className="fade-up">
-          <div className="inline-flex items-center gap-2 border border-border rounded-full px-3 py-1 text-xs text-muted-foreground mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>
-            Estratega Digital & Growth Partner
-          </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight">
-            Andrés <span className="text-gold">Muriel</span>
-          </h1>
-          <p className="mt-8 text-xl md:text-2xl text-foreground/90 leading-snug font-medium max-w-xl">
-            No ayudo a negocios a conseguir likes. Ayudo a negocios a conseguir <span className="text-gold">clientes</span>.
-          </p>
-          <p className="mt-6 text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
-            Construyo sistemas de crecimiento mediante publicidad digital, embudos de venta, automatización y contenido estratégico para generar oportunidades de negocio de forma constante.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a href={WA} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 bg-gold text-primary-foreground px-6 py-3.5 rounded-lg font-semibold hover:opacity-90 transition">
-              Quiero más clientes
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a href="#planes" className="inline-flex items-center gap-2 border border-gold text-foreground px-6 py-3.5 rounded-lg font-semibold hover:bg-gold/10 transition">
-              Ver planes
-            </a>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="absolute inset-0 hero-glow scale-125"></div>
-          <div className="relative aspect-[4/5] max-w-md mx-auto">
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-gold/20 to-transparent blur-3xl"></div>
-            <img
-              src={andresAsset.url}
-              alt="Andrés Muriel, Estratega Digital"
-              className="relative w-full h-full object-cover rounded-2xl border border-border"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Problem() {
-  const lines = [
-    "Muchos negocios tienen un excelente producto o servicio.",
-    "Pero no tienen un sistema para atraer clientes de forma constante.",
-    "Publican contenido sin estrategia.",
-    "Invierten en publicidad sin resultados claros.",
-    "Dependen únicamente de recomendaciones.",
-    "Y terminan perdiendo oportunidades de venta cada semana.",
-  ];
-  return (
-    <section className="py-32 px-6 border-t border-border">
-      <div className="max-w-4xl mx-auto">
-        <p className="text-sm uppercase tracking-[0.2em] text-gold mb-8">El problema</p>
-        <div className="space-y-5">
-          {lines.map((l, i) => (
-            <p key={i} className="text-2xl md:text-3xl font-semibold leading-snug text-foreground/85">
+        <div className="hidden md:flex items-center justify-center gap-9 text-[13px] text-ink/80 font-medium">
+          {[
+            ["Inicio", "#inicio"],
+            ["Sobre mí", "#sobre-mi"],
+            ["Servicios", "#servicios"],
+            ["Planes", "#planes"],
+            ["Contacto", "#contacto"],
+          ].map(([l, h]) => (
+            <a key={l} href={h} className="hover:text-ink relative group">
               {l}
+              <span className="absolute -bottom-1 left-0 w-0 group-hover:w-full h-px bg-ink transition-all duration-300" />
+            </a>
+          ))}
+        </div>
+        <div className="hidden md:flex items-center gap-3 bg-white/70 border border-black/5 rounded-full pl-4 pr-1 py-1 w-[260px]">
+          <Search className="w-3.5 h-3.5 text-ink/50" />
+          <input
+            placeholder="Buscar estrategia…"
+            className="bg-transparent flex-1 text-xs text-ink placeholder:text-ink/40 outline-none py-1.5"
+          />
+          <button className="text-[11px] font-semibold bg-ink text-cream rounded-full px-3 py-1.5">Ir</button>
+        </div>
+      </div>
+    </motion.nav>
+  );
+}
+
+/* ───────────────── HERO ───────────────── */
+function Hero() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+
+  return (
+    <section id="inicio" ref={ref} className="relative pt-16 bg-cream text-ink overflow-hidden">
+      <div className="relative max-w-7xl mx-auto px-6 pt-12 pb-0">
+        <div className="grid lg:grid-cols-[1.05fr_1fr] gap-10 items-start">
+          {/* Left content */}
+          <div className="relative pt-6 lg:pt-10">
+            <motion.div
+              initial="hidden" animate="show" custom={0} variants={fadeUp}
+              className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-ink/60 mb-8"
+            >
+              <span className="font-mono">01</span>
+              <span className="w-8 h-px bg-ink/30" />
+              <span>Estratega · Growth Partner</span>
+            </motion.div>
+
+            <motion.h1
+              initial="hidden" animate="show" custom={1} variants={fadeUp}
+              className="font-display font-extrabold tracking-tightest leading-[0.88] text-[64px] sm:text-[88px] lg:text-[124px]"
+            >
+              <span className="relative inline-block">
+                ANDRÉS
+                <svg
+                  aria-hidden viewBox="0 0 220 60"
+                  className="absolute -right-2 -top-3 w-[55%] text-gold pointer-events-none"
+                >
+                  <motion.path
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ delay: 0.9, duration: 1.4, ease: "easeInOut" }}
+                    d="M5 35 C 55 5, 130 5, 200 30 C 175 40, 110 50, 50 45"
+                    fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+              <br />MURIEL
+            </motion.h1>
+
+            <motion.div
+              initial="hidden" animate="show" custom={2} variants={fadeUp}
+              className="mt-10 flex flex-wrap items-center gap-3"
+            >
+              <a href={WA} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 bg-ink text-cream px-5 py-3 rounded-full text-sm font-semibold hover:bg-ink/90 transition">
+                Quiero más clientes
+                <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
+              </a>
+              <a href="#planes" className="inline-flex items-center gap-2 border border-ink/20 text-ink px-5 py-3 rounded-full text-sm font-semibold hover:bg-white/60 transition">
+                Ver planes
+              </a>
+            </motion.div>
+
+            <motion.div
+              initial="hidden" animate="show" custom={3} variants={fadeUp}
+              className="mt-14 flex flex-wrap items-end gap-10"
+            >
+              <div>
+                <div className="text-[11px] uppercase tracking-[0.25em] text-ink/55 mb-2">Negocios atendidos</div>
+                <div className="flex items-center gap-3">
+                  <div className="flex -space-x-2">
+                    {[1,2,3,4].map(i => (
+                      <div key={i} className="w-7 h-7 rounded-full border-2 border-cream bg-gradient-to-br from-ink/30 to-ink/60" />
+                    ))}
+                  </div>
+                  <span className="font-display font-extrabold text-2xl tracking-tightest">+50</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right image with cream stat */}
+          <div className="relative lg:-mr-6">
+            <motion.div
+              style={{ scale }}
+              className="relative aspect-[3/4] w-full max-w-[520px] ml-auto rounded-t-[180px] overflow-hidden bg-ink/5"
+            >
+              <motion.img
+                style={{ y }}
+                src={andresAsset.url}
+                alt="Andrés Muriel"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent" />
+            </motion.div>
+
+            {/* Floating stat card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.1, duration: 0.7 }}
+              className="absolute left-0 lg:-left-6 bottom-24 lg:bottom-32 bg-cream/95 backdrop-blur border border-ink/10 rounded-2xl p-5 w-[230px] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]"
+            >
+              <div className="text-3xl font-display font-extrabold tracking-tightest text-ink">3.8×</div>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-ink/55">ROAS promedio</div>
+              <p className="mt-3 text-[12px] leading-snug text-ink/70">
+                Sistemas que convierten atención en oportunidades reales — no en likes.
+              </p>
+            </motion.div>
+
+            {/* Round badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.3, duration: 0.6 }}
+              className="absolute top-8 left-2 lg:-left-4"
+            >
+              <div className="relative w-24 h-24 rounded-full bg-cream border border-ink/10 flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-gold" />
+                <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full animate-[spin_18s_linear_infinite]">
+                  <defs>
+                    <path id="circle" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" />
+                  </defs>
+                  <text className="fill-ink/70" fontSize="8.5" letterSpacing="2">
+                    <textPath href="#circle">GROWTH · STRATEGY · GROWTH · SYSTEM ·</textPath>
+                  </text>
+                </svg>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Bottom strip: search-like value prop */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.7 }}
+          className="relative mt-10 lg:-mt-24 lg:mb-16 max-w-md"
+        >
+          <div className="bg-cream-soft border border-ink/10 rounded-2xl p-5">
+            <p className="text-[13px] leading-relaxed text-ink/75">
+              No ayudo a negocios a conseguir <em className="text-ink/40 not-italic line-through">likes</em>.
+              Ayudo a negocios a conseguir <span className="font-semibold text-ink">clientes</span> mediante publicidad,
+              embudos y automatización.
             </p>
-          ))}
-        </div>
-        <p className="mt-14 text-2xl md:text-3xl font-bold leading-snug">
-          El problema no es tu producto. <span className="text-gold">El problema es la falta de un sistema de crecimiento.</span>
-        </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
-function Solution() {
-  const items = [
-    { icon: Megaphone, label: "Publicidad Digital" },
-    { icon: Filter, label: "Embudos de Venta" },
-    { icon: LayoutTemplate, label: "Landing Pages" },
-    { icon: Workflow, label: "Automatización" },
-    { icon: FileText, label: "Contenido Estratégico" },
-    { icon: TrendingUp, label: "Optimización de Conversión" },
-  ];
+/* ───────────────── MARQUEE ───────────────── */
+function Marquee() {
+  const items = ["BARBERÍAS", "ODONTOLOGÍA", "INMOBILIARIA", "CLÍNICAS", "ABOGADOS", "CONSTRUCTORAS", "RESTAURANTES", "MARCAS PERSONALES"];
+  const row = [...items, ...items];
   return (
-    <section className="py-32 px-6 border-t border-border bg-surface">
-      <div className="max-w-6xl mx-auto">
-        <div className="max-w-2xl mb-16">
-          <p className="text-sm uppercase tracking-[0.2em] text-gold mb-4">Mi solución</p>
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-            Ayudo a negocios a construir <span className="text-gold">sistemas de crecimiento</span> reales.
-          </h2>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
-          {items.map(({ icon: Icon, label }) => (
-            <div key={label} className="bg-background p-8 flex items-start gap-4 hover:bg-card transition">
-              <Icon className="w-6 h-6 text-gold shrink-0 mt-1 stroke-[1.5]" />
-              <span className="text-lg font-medium">{label}</span>
-            </div>
-          ))}
-        </div>
-        <p className="mt-16 text-xl md:text-2xl font-medium text-foreground/85 max-w-3xl">
-          No vendo anuncios. No vendo seguidores. No vendo humo. <span className="text-gold">Construyo sistemas para generar oportunidades de negocio.</span>
-        </p>
+    <section className="bg-cream border-t border-ink/10 py-6 overflow-hidden">
+      <div className="flex marquee gap-12 whitespace-nowrap">
+        {row.map((t, i) => (
+          <div key={i} className="flex items-center gap-12 text-ink/40 font-display font-extrabold tracking-tightest text-2xl">
+            <span>{t}</span>
+            <span className="text-gold">✦</span>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
 
-function HowItWorks() {
-  const steps = ["Anuncio", "Contenido", "Landing / WhatsApp", "Captura", "Seguimiento", "Agendamiento", "Venta", "Fidelización"];
-  return (
-    <section className="py-32 px-6 border-t border-border">
-      <div className="max-w-6xl mx-auto">
-        <div className="max-w-2xl mb-16">
-          <p className="text-sm uppercase tracking-[0.2em] text-gold mb-4">El sistema</p>
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight">Cómo funciona el sistema</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {steps.map((s, i) => (
-            <div key={s} className="relative border border-border rounded-xl p-5 bg-card">
-              <div className="text-xs text-gold font-mono mb-2">{String(i + 1).padStart(2, "0")}</div>
-              <div className="text-base font-semibold">{s}</div>
-            </div>
-          ))}
-        </div>
-        <p className="mt-16 text-xl md:text-2xl font-medium text-center text-foreground/85">
-          Cada paso tiene un único objetivo: <span className="text-gold">convertir atención en clientes.</span>
-        </p>
-      </div>
-    </section>
-  );
-}
-
+/* ───────────────── ABOUT (dark) ───────────────── */
 function About() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
   return (
-    <section className="py-32 px-6 border-t border-border bg-surface">
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-5 gap-12 items-start">
-        <div className="lg:col-span-2">
-          <div className="relative aspect-square max-w-sm">
-            <div className="absolute inset-0 hero-glow"></div>
-            <img src={andresAsset.url} alt="Andrés Muriel" className="relative w-full h-full object-cover rounded-2xl border border-border" />
-          </div>
+    <section id="sobre-mi" ref={ref} className="relative py-32 px-6 bg-background overflow-hidden">
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-14 items-center">
+        <div className="relative">
+          <div className="absolute inset-0 hero-glow scale-110" />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.9, ease: "easeOut" as const }}
+            className="relative aspect-[4/5] max-w-md mx-auto rounded-[40px] overflow-hidden border border-white/5"
+          >
+            <img src={andresAsset.url} alt="Andrés Muriel" className="w-full h-full object-cover grayscale" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+          </motion.div>
         </div>
-        <div className="lg:col-span-3 max-w-2xl">
-          <p className="text-sm uppercase tracking-[0.2em] text-gold mb-4">Sobre mí</p>
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-8">Estrategia, no suerte.</h2>
-          <div className="space-y-5 text-base md:text-lg text-muted-foreground leading-relaxed">
-            <p>Soy Andrés Muriel, Estratega Digital & Growth Partner. Mi misión es ayudar a negocios, emprendedores y empresas a construir sistemas de crecimiento que les permitan atraer más clientes, aumentar oportunidades de venta y escalar de manera estratégica.</p>
-            <p>A través de publicidad digital, embudos de venta, automatización, contenido estratégico y optimización de conversiones, diseño procesos que convierten la atención en resultados.</p>
-            <p>Creo que el crecimiento de un negocio no debe depender de la suerte ni de publicaciones ocasionales. Debe apoyarse en una estrategia clara, medible y enfocada en generar oportunidades reales.</p>
-            <p className="text-foreground font-medium">Por eso no me enfoco únicamente en gestionar campañas. Me enfoco en construir sistemas que impulsen el crecimiento.</p>
+
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-[11px] uppercase tracking-[0.3em] text-gold mb-5"
+          >
+            — Sobre mí
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl lg:text-7xl"
+          >
+            ESTRATEGIA,<br />NO SUERTE.
+          </motion.h2>
+
+          <div className="mt-8 flex flex-wrap gap-2">
+            {["Estrategia", "Growth", "Sistemas"].map((t, i) => (
+              <motion.span
+                key={t}
+                initial={{ opacity: 0, y: 10 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.4 + i * 0.08 }}
+                className="px-3 py-1 rounded-full border border-white/10 text-xs text-foreground/80"
+              >
+                {t}
+              </motion.span>
+            ))}
           </div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="mt-8 text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl"
+          >
+            Soy Andrés Muriel, Estratega Digital & Growth Partner. Construyo sistemas de crecimiento
+            con publicidad digital, embudos de venta, automatización y contenido estratégico para
+            generar oportunidades de negocio de forma constante. No vendo anuncios, vendo procesos
+            que convierten atención en clientes.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="mt-10 flex gap-3"
+          >
+            <a href={WA} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-gold text-primary-foreground px-5 py-3 rounded-full text-sm font-semibold hover:opacity-90 transition">
+              Hablar conmigo <ArrowRight className="w-4 h-4" />
+            </a>
+            <a href="#servicios" className="inline-flex items-center gap-2 border border-white/15 text-foreground px-5 py-3 rounded-full text-sm font-semibold hover:bg-white/5 transition">
+              <Play className="w-3.5 h-3.5 fill-current" /> Ver método
+            </a>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 }
 
+/* ───────────────── SERVICES ───────────────── */
+const services = [
+  { icon: Calendar, name: "Booking Pro™", sub: "Sistema profesional de agendamiento", price: "$600.000 COP", priceUsd: "USD $176", note: "Mantenimiento: $65.000/mes", features: ["Reservas online", "Confirmaciones automáticas", "Gestión de horarios", "Optimizado móviles"] },
+  { icon: LayoutTemplate, name: "Landing Page", sub: "Página profesional de conversión", price: "$550.000 COP", priceUsd: "USD $162", features: ["Diseño profesional", "Copywriting persuasivo", "Integración WhatsApp", "Optimizada para conversión"] },
+  { icon: Video, name: "Authority Video™", sub: "Video estratégico de autoridad", price: "$430.000 COP", priceUsd: "USD $126", features: ["Guion estratégico", "Estructura de embudo", "Grabación & edición pro", "Copy persuasivo"] },
+  { icon: Edit3, name: "Social Edit™", sub: "Edición profesional para redes", price: "$150.000 COP", priceUsd: "USD $44", features: ["Audio + música libre", "Subtítulos", "Cortes dinámicos", "Formato adaptable"] },
+  { icon: Sparkles, name: "Creator Elite™", sub: "Edición premium de alto impacto", price: "$250.000 COP", priceUsd: "USD $74", features: ["Diseño sonoro", "Subtítulos dinámicos", "B-Rolls + efectos", "Retención optimizada"] },
+  { icon: Film, name: "Creator Elite™ Long", sub: "Videos de más de 4 min", price: "$320.000 COP", priceUsd: "USD $94", features: ["Edición avanzada", "Narrativa optimizada", "Diseño sonoro", "Retención sostenida"] },
+  { icon: Bot, name: "WhatsApp Sales™", sub: "Automatización estratégica", price: "Según alcance", priceUsd: "", features: ["Automatización respuestas", "Captación prospectos", "Flujos seguimiento", "Integración campañas"] },
+];
+
+function Services() {
+  const [index, setIndex] = useState(0);
+  const perView = 3;
+  const max = Math.max(0, services.length - perView);
+  const go = (d: number) => setIndex((v) => Math.min(max, Math.max(0, v + d)));
+
+  return (
+    <section id="servicios" className="py-32 px-6 bg-background border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-end justify-between gap-6 mb-14">
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— Mis servicios</div>
+            <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl">
+              SERVICIOS<br />PREMIUM.
+            </h2>
+          </div>
+          <div className="hidden md:flex items-center gap-2">
+            <button onClick={() => go(-1)} disabled={index === 0} className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 disabled:opacity-30 transition">
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button onClick={() => go(1)} disabled={index >= max} className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 disabled:opacity-30 transition">
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        <div className="overflow-hidden">
+          <motion.div
+            animate={{ x: `calc(${-index} * (100% / 3) - ${index} * 1.25rem)` }}
+            transition={{ type: "spring", stiffness: 120, damping: 22 }}
+            className="flex gap-5"
+          >
+            {services.map(({ icon: Icon, ...s }, i) => (
+              <motion.div
+                key={s.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
+                whileHover={{ y: -6 }}
+                className="shrink-0 w-full md:w-[calc((100%-2.5rem)/3)] rounded-3xl bg-card border border-white/5 p-7 flex flex-col group hover:border-gold/40 transition-colors"
+              >
+                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition">
+                  <Icon className="w-5 h-5 text-gold stroke-[1.5]" />
+                </div>
+                <h3 className="font-display font-extrabold text-2xl tracking-tightest mb-1">{s.name}</h3>
+                <p className="text-sm text-muted-foreground mb-5">{s.sub}</p>
+                <div className="mb-5">
+                  <div className="text-2xl font-display font-extrabold text-gold tracking-tightest">{s.price}</div>
+                  {s.priceUsd && <div className="text-xs text-muted-foreground mt-0.5">{s.priceUsd}</div>}
+                  {s.note && <div className="text-xs text-muted-foreground mt-1.5">{s.note}</div>}
+                </div>
+                <ul className="space-y-2 text-sm text-muted-foreground flex-1">
+                  {s.features.map((f) => (
+                    <li key={f} className="flex gap-2"><Check className="w-4 h-4 text-gold shrink-0 mt-0.5 stroke-[2.5]" /><span>{f}</span></li>
+                  ))}
+                </ul>
+                <a href={WA} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold group/link">
+                  Cotizar <ArrowUpRight className="w-4 h-4 group-hover/link:rotate-45 transition-transform" />
+                </a>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────── PLANS ───────────────── */
 const plans = [
-  {
-    badge: "Bronze",
-    name: "Bronze Growth",
-    cop: "$900.000",
-    usd: "USD $265",
-    target: "Ticket promedio entre $30.000 y $150.000",
-    features: [
-      "1 video UGC estratégico (grabación y edición profesional)",
-      "1 video directo con embudo de ventas",
-      "1 carrusel de alto impacto con estructura de ventas",
-      "2 imágenes estratégicas orientadas a ventas",
-      "Configuración y optimización de campañas Meta Ads",
-      "Seguimiento vía WhatsApp durante todo el mes",
-      "1 reporte mensual",
-      "1 reunión estratégica mensual (30–45 min)",
-    ],
-    ideal: ["Barberías", "Cafeterías", "Restaurantes", "Florerías", "Salones de belleza", "Heladerías"],
-  },
-  {
-    badge: "Silver",
-    name: "Silver Growth",
-    cop: "$1.400.000",
-    usd: "USD $412",
-    target: "Ticket promedio entre $150.000 y $300.000",
-    features: [
-      "2 videos UGC estratégicos",
-      "2 videos directos con embudo de ventas",
-      "3 carruseles de alto impacto",
-      "2 imágenes estratégicas de ventas",
-      "Configuración y optimización de campañas Meta Ads",
-      "Seguimiento vía WhatsApp durante todo el mes",
-      "2 reportes quincenales",
-      "1 reunión estratégica mensual (30–45 min)",
-    ],
-    ideal: ["Odontólogos", "Gimnasios", "Academias", "Inmobiliarias", "Clínicas estéticas", "Abogados"],
-  },
-  {
-    badge: "Gold",
-    name: "Gold Growth",
-    cop: "$2.300.000",
-    usd: "USD $676",
-    target: "Ticket promedio entre $300.000 y $600.000",
-    featured: true,
-    features: [
-      "3 videos UGC estratégicos",
-      "2 videos directos con embudo de ventas",
-      "1 Reel con música viral",
-      "3 carruseles de alto impacto",
-      "2 imágenes estratégicas de ventas",
-      "1 imagen Bold Offer de alta conversión",
-      "Meta Ads + Estrategia de remarketing",
-      "Seguimiento vía WhatsApp todo el mes",
-      "2 reportes quincenales",
-      "1 reunión estratégica mensual",
-    ],
-    ideal: ["Constructoras", "Clínicas especializadas", "Marcas personales", "Empresas B2B", "Concesionarios"],
-  },
-  {
-    badge: "Black",
-    name: "Black Growth Partner",
-    cop: "$4.500.000",
-    usd: "USD $1.324",
-    target: "Ticket promedio superior a $600.000",
-    intro: "Incluye todo lo del plan Gold más:",
-    features: [
-      "2 videos orgánicos estratégicos por semana",
-      "Estrategia para historias diarias",
-      "Gestión estratégica de contenido orgánico",
-      "Landing Page profesional de conversión",
-      "Automatización de WhatsApp Business",
-      "Flujo de seguimiento para acelerar cierres",
-      "Dashboard de métricas y rendimiento",
-      "Auditoría mensual de resultados",
-      "Optimización continua del embudo",
-    ],
-    ideal: ["Clínicas premium", "Franquicias", "Constructoras grandes", "Marcas consolidadas", "Servicios de alto valor"],
-  },
+  { badge: "Bronze", name: "Bronze Growth", cop: "$900.000", usd: "USD $265", target: "Ticket $30K–$150K",
+    features: ["1 video UGC estratégico", "1 video directo con embudo", "1 carrusel de alto impacto", "2 imágenes estratégicas", "Meta Ads", "Seguimiento WhatsApp", "1 reporte mensual", "1 reunión estratégica"],
+    ideal: "Barberías · Cafeterías · Florerías · Salones" },
+  { badge: "Silver", name: "Silver Growth", cop: "$1.400.000", usd: "USD $412", target: "Ticket $150K–$300K",
+    features: ["2 videos UGC estratégicos", "2 videos directos con embudo", "3 carruseles de alto impacto", "2 imágenes estratégicas", "Meta Ads", "Seguimiento WhatsApp", "2 reportes quincenales", "1 reunión estratégica"],
+    ideal: "Odontólogos · Gimnasios · Clínicas · Abogados" },
+  { badge: "Gold", name: "Gold Growth", cop: "$2.300.000", usd: "USD $676", target: "Ticket $300K–$600K", featured: true,
+    features: ["3 videos UGC + 2 directos", "1 Reel con música viral", "3 carruseles de alto impacto", "Bold Offer de alta conversión", "Meta Ads + remarketing", "Seguimiento WhatsApp", "2 reportes quincenales", "1 reunión estratégica"],
+    ideal: "Constructoras · Clínicas · Marcas personales" },
+  { badge: "Black", name: "Black Growth Partner", cop: "$4.500.000", usd: "USD $1.324", target: "Ticket > $600K", intro: "Todo lo del Gold más:",
+    features: ["Contenido orgánico semanal", "Estrategia de historias", "Landing Page profesional", "Automatización WhatsApp", "Dashboard de métricas", "Auditoría mensual", "Optimización continua"],
+    ideal: "Clínicas premium · Franquicias · Alto valor" },
 ];
 
 function Plans() {
   return (
-    <section id="planes" className="py-32 px-6 border-t border-border">
+    <section id="planes" className="py-32 px-6 bg-background border-t border-white/5">
       <div className="max-w-7xl mx-auto">
-        <div className="max-w-2xl mb-16">
-          <p className="text-sm uppercase tracking-[0.2em] text-gold mb-4">Planes</p>
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight">Planes de <span className="text-gold">crecimiento digital</span></h2>
-          <p className="mt-4 text-muted-foreground text-lg">Elige el plan según el ticket promedio y la etapa de tu negocio.</p>
+        <div className="max-w-3xl mb-16">
+          <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— Planes de crecimiento</div>
+          <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl lg:text-7xl">
+            ELIGE TU RITMO<br />DE CRECIMIENTO.
+          </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {plans.map((p) => (
-            <div
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+          {plans.map((p, i) => (
+            <motion.div
               key={p.name}
-              className={`relative flex flex-col rounded-2xl p-7 border transition ${
-                p.featured
-                  ? "border-gold bg-card gold-glow"
-                  : "border-border bg-card hover:border-gold/40"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+              whileHover={{ y: -8 }}
+              className={`relative flex flex-col rounded-3xl p-7 border transition-colors ${
+                p.featured ? "border-gold bg-card gold-glow" : "border-white/8 bg-card hover:border-gold/40"
               }`}
             >
               {p.featured && (
@@ -334,12 +468,12 @@ function Plans() {
                   Recomendado
                 </div>
               )}
-              <div className="text-xs uppercase tracking-[0.2em] text-gold mb-2">{p.badge}</div>
-              <h3 className="text-2xl font-bold mb-1">{p.name}</h3>
+              <div className="text-[10px] uppercase tracking-[0.3em] text-gold mb-2">{p.badge}</div>
+              <h3 className="font-display font-extrabold text-2xl tracking-tightest mb-1">{p.name}</h3>
               <p className="text-xs text-muted-foreground mb-6 min-h-[32px]">{p.target}</p>
 
               <div className="mb-6">
-                <div className="text-3xl font-extrabold text-gold">{p.cop}<span className="text-sm text-muted-foreground font-medium"> COP / mes</span></div>
+                <div className="text-3xl font-display font-extrabold text-gold tracking-tightest">{p.cop}<span className="text-xs text-muted-foreground font-medium"> COP / mes</span></div>
                 <div className="text-xs text-muted-foreground mt-1">{p.usd}</div>
               </div>
 
@@ -354,75 +488,151 @@ function Plans() {
                 ))}
               </ul>
 
-              <div className="text-xs text-muted-foreground border-t border-border pt-4 mb-5">
+              <div className="text-xs text-muted-foreground border-t border-white/5 pt-4 mb-5">
                 <div className="font-semibold text-foreground/80 mb-1.5">Ideal para:</div>
-                <div>{p.ideal.join(" · ")}</div>
+                <div>{p.ideal}</div>
               </div>
 
-              <a
-                href={WA}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`mt-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg font-semibold transition ${
-                  p.featured
-                    ? "bg-gold text-primary-foreground hover:opacity-90"
-                    : "border border-gold text-foreground hover:bg-gold/10"
-                }`}
-              >
-                Quiero este plan
-                <ArrowRight className="w-4 h-4" />
+              <a href={WA} target="_blank" rel="noreferrer"
+                className={`mt-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full font-semibold text-sm transition ${
+                  p.featured ? "bg-gold text-primary-foreground hover:opacity-90" : "border border-gold/60 text-foreground hover:bg-gold/10"
+                }`}>
+                Quiero este plan <ArrowRight className="w-4 h-4" />
               </a>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         <p className="mt-10 text-xs text-muted-foreground max-w-3xl">
-          <span className="text-gold font-semibold">Fondo de Optimización Creativa:</span> $100.000 COP (USD $29). Reserva opcional para refrescar creativos cuando la estrategia lo requiere — incluye jornada adicional de grabación y edición profesional.
+          <span className="text-gold font-semibold">Fondo de Optimización Creativa:</span> $100.000 COP (USD $29). Reserva opcional para refrescar creativos cuando la estrategia lo requiere.
         </p>
       </div>
     </section>
   );
 }
 
-const services = [
-  { icon: Calendar, name: "Booking Pro™", sub: "Sistema profesional de agendamiento", price: "$600.000 COP", priceUsd: "USD $176", note: "Mantenimiento: $65.000 COP / mes", features: ["Reservas online", "Confirmaciones automáticas", "Gestión de horarios", "Optimizado para móviles"] },
-  { icon: LayoutTemplate, name: "Landing Page", sub: "Página profesional de conversión", price: "$550.000 COP", priceUsd: "USD $162", features: ["Diseño profesional", "Copywriting persuasivo", "Integración con WhatsApp", "Optimizada para conversión"] },
-  { icon: Video, name: "Authority Video™", sub: "Video estratégico de autoridad", price: "$430.000 COP", priceUsd: "USD $126", features: ["Guion estratégico", "Estructura de embudo", "Grabación y edición profesional", "Copy persuasivo"] },
-  { icon: Edit3, name: "Social Edit™", sub: "Edición profesional para redes", price: "$150.000 COP", priceUsd: "USD $44", features: ["Audio + música libre", "Subtítulos", "Cortes dinámicos", "Adaptación a redes"] },
-  { icon: Sparkles, name: "Creator Elite™", sub: "Edición premium de alto impacto", price: "$250.000 COP", priceUsd: "USD $74", features: ["Diseño sonoro", "Subtítulos dinámicos", "B-Rolls + efectos", "Optimización de retención"] },
-  { icon: Film, name: "Creator Elite™ Long Form", sub: "Videos de más de 4 minutos", price: "$320.000 COP", priceUsd: "USD $94", features: ["Todo lo de Creator Elite", "Edición avanzada", "Optimización narrativa", "Retención para video largo"] },
-  { icon: Bot, name: "WhatsApp Sales System™", sub: "Automatización estratégica de ventas", price: "Según alcance", priceUsd: "", features: ["Automatización de respuestas", "Captación de prospectos", "Flujos de seguimiento", "Integración con campañas"] },
+/* ───────────────── POSSIBILITIES (split image + tags) ───────────────── */
+function Possibilities() {
+  const tags = ["Publicidad", "Embudos", "Automatización", "Landing", "Contenido", "CRO"];
+  const [active, setActive] = useState(0);
+  return (
+    <section className="py-32 px-6 bg-background border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl lg:text-7xl max-w-4xl mb-16"
+        >
+          POSIBILIDADES<br />ILIMITADAS CON<br /><span className="text-gold">UN SISTEMA REAL.</span>
+        </motion.h2>
+
+        <div className="grid lg:grid-cols-[180px_1fr_1fr] gap-8 items-center">
+          <div className="flex lg:flex-col gap-2 flex-wrap">
+            {tags.map((t, i) => (
+              <button
+                key={t}
+                onClick={() => setActive(i)}
+                className={`text-left text-sm px-4 py-2 rounded-full border transition ${
+                  active === i ? "bg-gold text-primary-foreground border-gold" : "border-white/10 text-muted-foreground hover:text-foreground hover:border-white/30"
+                }`}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/5"
+          >
+            <img src={andresAsset.url} alt="Sistema" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-background/60 via-transparent to-transparent" />
+          </motion.div>
+
+          <div>
+            <h3 className="font-display font-extrabold text-3xl tracking-tightest mb-4">
+              Cómo el <span className="text-gold">sistema</span> transforma tu negocio.
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Cada componente — anuncio, contenido, landing, captura, seguimiento, agendamiento, venta y fidelización —
+              está diseñado para convertir atención en oportunidades reales de negocio. Sin suerte, sin improvisación.
+            </p>
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              {["Anuncio", "Contenido", "Landing", "Captura", "Seguimiento", "Agenda", "Venta", "Fidelización"].map((s, i) => (
+                <div key={s} className="flex items-center gap-3 text-sm text-foreground/80 border border-white/8 rounded-xl px-3 py-2.5">
+                  <span className="font-mono text-[10px] text-gold">{String(i + 1).padStart(2, "0")}</span>
+                  <span>{s}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 flex items-center gap-4">
+              <a href={WA} target="_blank" rel="noreferrer" className="text-sm font-semibold text-gold inline-flex items-center gap-2 group">
+                Conoce más <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition" />
+              </a>
+              <span className="text-xs text-muted-foreground">— Andrés Muriel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────── TESTIMONIALS ───────────────── */
+const voices = [
+  { q: "El sistema cambió por completo nuestra forma de captar pacientes. Ahora tenemos agenda llena.", n: "Dr. Camilo R.", r: "Clínica odontológica" },
+  { q: "Pasamos de depender del voz a voz a tener un flujo constante de oportunidades calificadas.", n: "María Restrepo", r: "Constructora" },
+  { q: "Andrés no vende humo. Vende estructura, claridad y resultados medibles cada semana.", n: "Sebastián O.", r: "Marca personal" },
 ];
 
-function Services() {
+function Testimonials() {
   return (
-    <section id="servicios" className="py-32 px-6 border-t border-border bg-surface">
-      <div className="max-w-7xl mx-auto">
-        <div className="max-w-2xl mb-16">
-          <p className="text-sm uppercase tracking-[0.2em] text-gold mb-4">Servicios premium</p>
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight">Servicios individuales</h2>
-          <p className="mt-4 text-muted-foreground text-lg">¿No necesitas un plan completo? Contrata únicamente lo que tu negocio requiere.</p>
+    <section className="py-32 px-6 bg-background border-t border-white/5">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+        <div>
+          <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— Voces del crecimiento</div>
+          <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl">
+            LO QUE DICEN<br />LOS NEGOCIOS.
+          </h2>
+          <p className="mt-6 text-muted-foreground max-w-md">
+            Resultados reales de quienes confiaron en el sistema. Estrategia, ejecución y mejora continua.
+          </p>
+          <svg viewBox="0 0 400 60" className="mt-10 w-full max-w-md text-gold/40">
+            <motion.path
+              initial={{ pathLength: 0 }}
+              whileInView={{ pathLength: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 2 }}
+              d="M0 30 Q 100 0, 200 30 T 400 30"
+              fill="none" stroke="currentColor" strokeWidth="1.5"
+            />
+          </svg>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {services.map(({ icon: Icon, ...s }) => (
-            <div key={s.name} className="rounded-2xl border border-border bg-background p-7 hover:border-gold/40 transition flex flex-col">
-              <Icon className="w-6 h-6 text-gold stroke-[1.5] mb-5" />
-              <h3 className="text-xl font-bold">{s.name}</h3>
-              <p className="text-sm text-muted-foreground mb-5">{s.sub}</p>
-              <div className="mb-5">
-                <div className="text-2xl font-extrabold text-gold">{s.price}</div>
-                {s.priceUsd && <div className="text-xs text-muted-foreground mt-0.5">{s.priceUsd}</div>}
-                {s.note && <div className="text-xs text-muted-foreground mt-1.5">{s.note}</div>}
+
+        <div className="space-y-4">
+          {voices.map((v, i) => (
+            <motion.div
+              key={v.n}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="bg-card border border-white/8 rounded-2xl p-6 flex gap-5 items-start hover:border-gold/40 transition-colors"
+            >
+              <div className="flex-1">
+                <p className="text-foreground/90 leading-relaxed">"{v.q}"</p>
+                <div className="mt-4">
+                  <div className="font-semibold text-sm">{v.n}</div>
+                  <div className="text-xs text-muted-foreground">{v.r}</div>
+                </div>
               </div>
-              <ul className="space-y-2 text-sm text-muted-foreground flex-1">
-                {s.features.map((f) => (
-                  <li key={f} className="flex gap-2"><Check className="w-4 h-4 text-gold shrink-0 mt-0.5 stroke-[2.5]" /><span>{f}</span></li>
-                ))}
-              </ul>
-              <a href={WA} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold hover:gap-3 transition-all">
-                Cotizar este servicio <ArrowRight className="w-4 h-4" />
-              </a>
-            </div>
+              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold/40 to-gold/10 border border-white/10 shrink-0" />
+            </motion.div>
           ))}
         </div>
       </div>
@@ -430,66 +640,52 @@ function Services() {
   );
 }
 
-function IdealClient() {
-  const items = [
-    "Tienes un producto o servicio validado.",
-    "Puedes atender nuevos clientes.",
-    "Respondes mensajes rápidamente.",
-    "Quieres crecer de forma profesional.",
-    "Estás dispuesto a invertir en marketing.",
-    "Buscas resultados a largo plazo.",
-  ];
-  return (
-    <section className="py-32 px-6 border-t border-border">
-      <div className="max-w-4xl mx-auto">
-        <p className="text-sm uppercase tracking-[0.2em] text-gold mb-4">Cliente ideal</p>
-        <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-12">¿Eres un cliente ideal?</h2>
-        <ul className="space-y-5">
-          {items.map((i) => (
-            <li key={i} className="flex items-center gap-4 text-lg md:text-xl text-foreground/90 border-b border-border pb-5">
-              <Check className="w-5 h-5 text-gold shrink-0 stroke-[2.5]" />
-              <span>{i}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
+/* ───────────────── FAQ ───────────────── */
 const faqs = [
   { q: "¿La inversión publicitaria está incluida?", a: "Sí. Cada plan contempla la ejecución de la estrategia publicitaria necesaria para alcanzar los objetivos definidos." },
-  { q: "¿Cuánto tiempo tarda en verse resultados?", a: "Depende del mercado, la oferta y la competencia. Normalmente comenzamos a recopilar datos y optimizar campañas durante las primeras semanas." },
-  { q: "¿Garantizas ventas?", a: "No. Nadie puede garantizar ventas específicas. Lo que sí garantizo es la implementación profesional de una estrategia enfocada en generar oportunidades de negocio y maximizar las probabilidades de éxito." },
-  { q: "¿Trabajas con cualquier negocio?", a: "No. Trabajo principalmente con negocios que tienen capacidad de atender nuevos clientes y que desean crecer de manera profesional." },
-  { q: "¿Necesito una Landing Page?", a: "No siempre. Sin embargo, en muchos casos una Landing Page permite aumentar la conversión y mejorar la calidad de los prospectos." },
-  { q: "¿La Landing Page está incluida?", a: "Únicamente en el plan Black Growth Partner. También puede contratarse como servicio independiente." },
-  { q: "¿Puedo contratar solo un servicio?", a: "Sí. Puedes contratar únicamente una Landing Page, un Video Estratégico, una Automatización o cualquiera de los servicios premium." },
-  { q: "¿Qué es el Fondo de Optimización Creativa?", a: "Es una reserva destinada a la creación de nuevos creativos cuando la estrategia requiere refrescar anuncios para mantener o mejorar el rendimiento." },
+  { q: "¿Cuánto tiempo tarda en verse resultados?", a: "Depende del mercado, la oferta y la competencia. Las primeras semanas se recopilan datos y se optimizan campañas." },
+  { q: "¿Garantizas ventas?", a: "No. Lo que sí garantizo es la implementación profesional de una estrategia enfocada en generar oportunidades reales." },
+  { q: "¿Trabajas con cualquier negocio?", a: "No. Trabajo con negocios que tienen capacidad de atender nuevos clientes y desean crecer de manera profesional." },
+  { q: "¿Puedo contratar solo un servicio?", a: "Sí. Puedes contratar Landing, Video Estratégico, Automatización o cualquiera de los servicios premium individualmente." },
+  { q: "¿Qué es el Fondo de Optimización Creativa?", a: "Es una reserva para crear nuevos creativos cuando la estrategia requiere refrescar anuncios y mantener el rendimiento." },
 ];
 
 function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="py-32 px-6 border-t border-border bg-surface">
-      <div className="max-w-3xl mx-auto">
-        <p className="text-sm uppercase tracking-[0.2em] text-gold mb-4">FAQ</p>
-        <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-12">Preguntas frecuentes</h2>
+    <section id="faq" className="py-32 px-6 bg-background border-t border-white/5">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— FAQ</div>
+        <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl mb-14">
+          PREGUNTAS<br />FRECUENTES.
+        </h2>
         <div>
           {faqs.map((f, i) => {
             const isOpen = open === i;
             return (
-              <div key={i} className="border-b border-border">
+              <div key={i} className="border-b border-white/8">
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
                   className="w-full flex items-center justify-between gap-6 py-6 text-left group"
                 >
                   <span className="text-base md:text-lg font-semibold group-hover:text-gold transition">{f.q}</span>
-                  {isOpen ? <Minus className="w-5 h-5 text-gold shrink-0" /> : <Plus className="w-5 h-5 text-muted-foreground shrink-0" />}
+                  <span className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center shrink-0">
+                    {isOpen ? <Minus className="w-4 h-4 text-gold" /> : <Plus className="w-4 h-4" />}
+                  </span>
                 </button>
-                {isOpen && (
-                  <p className="pb-6 text-muted-foreground leading-relaxed text-base max-w-2xl fade-up">{f.a}</p>
-                )}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: "easeOut" as const }}
+                      className="overflow-hidden"
+                    >
+                      <p className="pb-6 text-muted-foreground leading-relaxed text-base max-w-2xl">{f.a}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}
@@ -499,92 +695,119 @@ function FAQ() {
   );
 }
 
-function NotDo() {
-  const items = [
-    "No vendo seguidores.",
-    "No utilizo estrategias engañosas.",
-    "No prometo resultados irreales.",
-    "No hago publicaciones diarias como Community Manager.",
-    "No trabajo con negocios que no puedan atender nuevos clientes.",
-  ];
-  return (
-    <section className="py-32 px-6 border-t border-border">
-      <div className="max-w-4xl mx-auto">
-        <p className="text-sm uppercase tracking-[0.2em] text-gold mb-4">Lo que no hago</p>
-        <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-12">Claridad antes que promesas.</h2>
-        <ul className="space-y-4">
-          {items.map((i) => (
-            <li key={i} className="flex items-center gap-4 text-lg text-muted-foreground">
-              <X className="w-5 h-5 text-foreground/40 shrink-0 stroke-[2]" />
-              <span>{i}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
+/* ───────────────── FINAL CTA ───────────────── */
 function FinalCTA() {
   return (
-    <section className="relative py-32 px-6 border-t border-border overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-surface to-background"></div>
-      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-96 hero-glow opacity-60"></div>
-      <div className="relative max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl md:text-6xl font-extrabold leading-[1.1] tracking-tight">
-          Tu negocio no necesita más publicaciones.
-        </h2>
-        <p className="mt-6 text-2xl md:text-3xl font-bold text-gold leading-snug">
-          Necesita un sistema que genere oportunidades de venta.
-        </p>
-        <p className="mt-8 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          Si quieres atraer más clientes, mejorar tus resultados y construir un proceso de crecimiento sostenible, conversemos. Analizaré tu negocio y te recomendaré la estrategia más adecuada según tus objetivos.
-        </p>
-        <a
-          href={WA}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group mt-10 inline-flex items-center gap-3 bg-gold text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition"
+    <section id="contacto" className="py-20 px-6 bg-background border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative rounded-[40px] overflow-hidden min-h-[460px] grid lg:grid-cols-2"
         >
-          Quiero una estrategia para mi negocio
-          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-        </a>
+          <div className="relative">
+            <img src={andresAsset.url} alt="Andrés Muriel" className="absolute inset-0 w-full h-full object-cover grayscale" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
+            <button className="absolute left-8 bottom-8 w-14 h-14 rounded-full bg-cream/95 text-ink flex items-center justify-center hover:scale-110 transition">
+              <Play className="w-5 h-5 fill-current" />
+            </button>
+          </div>
+          <div className="relative bg-card p-10 lg:p-14 flex flex-col justify-center">
+            <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl">
+              ENTRA AL<br /><span className="text-gold">SISTEMA.</span>
+            </h2>
+            <p className="mt-6 text-muted-foreground max-w-md leading-relaxed">
+              Si quieres atraer más clientes y construir un proceso de crecimiento sostenible, conversemos.
+              Analizo tu negocio y te recomiendo la estrategia más adecuada según tus objetivos.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={WA} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-gold text-primary-foreground px-6 py-3.5 rounded-full font-semibold hover:opacity-90 transition">
+                Quiero una estrategia <ArrowUpRight className="w-4 h-4" />
+              </a>
+              <a href="#planes" className="inline-flex items-center gap-2 border border-white/15 text-foreground px-6 py-3.5 rounded-full font-semibold hover:bg-white/5 transition">
+                Ver planes
+              </a>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
+/* ───────────────── FOOTER ───────────────── */
 function Footer() {
   return (
-    <footer className="border-t border-border py-16 px-6">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-        <div>
-          <div className="font-bold text-lg">Andrés Muriel</div>
-          <div className="text-sm text-muted-foreground">Estratega Digital & Growth Partner</div>
+    <footer className="bg-background border-t border-white/5 pt-20 pb-10 px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 pb-14 border-b border-white/8">
+          <div>
+            <div className="font-display font-extrabold text-2xl tracking-tightest">muriel<span className="text-gold">.</span></div>
+            <p className="mt-4 text-sm text-muted-foreground max-w-xs">
+              Estratega Digital & Growth Partner. Sistemas de crecimiento para negocios que quieren resultados reales.
+            </p>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-[0.25em] text-foreground/60 mb-4">Contacto</div>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><a href={WA} className="hover:text-gold">+57 324 448 2657</a></li>
+              <li>WhatsApp directo</li>
+              <li>Bogotá · Colombia</li>
+            </ul>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-[0.25em] text-foreground/60 mb-4">Explora</div>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><a href="#sobre-mi" className="hover:text-gold">Sobre mí</a></li>
+              <li><a href="#servicios" className="hover:text-gold">Servicios</a></li>
+              <li><a href="#planes" className="hover:text-gold">Planes</a></li>
+              <li><a href="#faq" className="hover:text-gold">FAQ</a></li>
+            </ul>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-[0.25em] text-foreground/60 mb-4">Servicios</div>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>Publicidad Digital</li>
+              <li>Embudos de venta</li>
+              <li>Automatización</li>
+              <li>Landing Pages</li>
+            </ul>
+          </div>
         </div>
-        <div className="md:text-right">
-          <p className="text-sm text-muted-foreground">Publicidad Digital · Embudos · Automatización · Landing Pages</p>
-          <p className="mt-3 text-sm italic text-foreground/70 max-w-md md:ml-auto">"No ayudo a negocios a conseguir likes. Ayudo a negocios a conseguir clientes."</p>
+
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+          <p className="font-display font-extrabold tracking-tightest text-4xl md:text-6xl text-foreground/90">
+            "Likes <span className="text-foreground/30 line-through">no pagan</span>. Clientes <span className="text-gold">sí</span>."
+          </p>
+          <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 transition">
+            <Instagram className="w-4 h-4" />
+          </a>
         </div>
-      </div>
-      <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-border text-xs text-muted-foreground flex justify-between">
-        <span>© {new Date().getFullYear()} Andrés Muriel.</span>
-        <span>Todos los derechos reservados.</span>
+
+        <div className="mt-10 pt-6 border-t border-white/8 flex flex-wrap justify-between gap-3 text-xs text-muted-foreground">
+          <span>© {new Date().getFullYear()} Andrés Muriel — Estratega Digital.</span>
+          <span>Todos los derechos reservados.</span>
+        </div>
       </div>
     </footer>
   );
 }
 
+/* ───────────────── FLOATING WA ───────────────── */
 function FloatingWA() {
   return (
-    <a
-      href={WA}
-      target="_blank"
-      rel="noopener noreferrer"
+    <motion.a
+      href={WA} target="_blank" rel="noreferrer"
       aria-label="Hablar por WhatsApp"
-      className="fixed bottom-6 right-6 z-50 bg-gold text-primary-foreground w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(212,175,55,0.6)] hover:scale-105 transition"
+      initial={{ scale: 0, rotate: -45 }}
+      animate={{ scale: 1, rotate: 0 }}
+      transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 15 }}
+      whileHover={{ scale: 1.08 }}
+      className="fixed bottom-6 right-6 z-50 bg-gold text-primary-foreground w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(212,175,55,0.6)]"
     >
       <MessageCircle className="w-6 h-6 fill-current" />
-    </a>
+    </motion.a>
   );
 }
