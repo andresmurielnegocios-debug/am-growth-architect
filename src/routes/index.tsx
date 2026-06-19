@@ -6,7 +6,7 @@ import {
   Edit3, Film, Bot, Sparkles,
 } from "lucide-react";
 import andresAsset from "@/assets/andres-muriel.png.asset.json";
-import logoAsset from "@/assets/am-logo-v2.png.asset.json";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
