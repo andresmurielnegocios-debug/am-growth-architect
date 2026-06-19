@@ -69,7 +69,7 @@ function Nav() {
         <a href="#inicio" className="flex items-center gap-2 text-ink">
           <span className="font-display font-extrabold text-xl tracking-tightest">muriel<span className="text-gold">.</span></span>
         </a>
-        <div className="hidden md:flex items-center justify-center gap-9 text-[13px] text-ink/80 font-medium">
+        <div className="hidden md:flex items-center justify-center gap-9 text-[13px] text-ink font-semibold">
           {[
             ["Inicio", "#inicio"],
             ["Sobre mí", "#sobre-mi"],
@@ -77,20 +77,15 @@ function Nav() {
             ["Planes", "#planes"],
             ["Contacto", "#contacto"],
           ].map(([l, h]) => (
-            <a key={l} href={h} className="hover:text-ink relative group">
+            <a key={l} href={h} className="hover:text-gold transition-colors relative group">
               {l}
-              <span className="absolute -bottom-1 left-0 w-0 group-hover:w-full h-px bg-ink transition-all duration-300" />
+              <span className="absolute -bottom-1 left-0 w-0 group-hover:w-full h-px bg-gold transition-all duration-300" />
             </a>
           ))}
         </div>
-        <div className="hidden md:flex items-center gap-3 bg-white/70 border border-black/5 rounded-full pl-4 pr-1 py-1 w-[260px]">
-          <Search className="w-3.5 h-3.5 text-ink/50" />
-          <input
-            placeholder="Buscar estrategia…"
-            className="bg-transparent flex-1 text-xs text-ink placeholder:text-ink/40 outline-none py-1.5"
-          />
-          <button className="text-[11px] font-semibold bg-ink text-cream rounded-full px-3 py-1.5">Ir</button>
-        </div>
+        <a href={WA} target="_blank" rel="noreferrer" className="hidden md:inline-flex items-center gap-2 bg-ink text-cream rounded-full px-4 py-2 text-xs font-semibold hover:bg-ink/90 transition">
+          Hablar conmigo <ArrowUpRight className="w-3.5 h-3.5" />
+        </a>
       </div>
     </motion.nav>
   );
