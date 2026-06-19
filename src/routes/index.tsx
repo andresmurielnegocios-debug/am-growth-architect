@@ -2,9 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "motion/react";
 import {
-  Megaphone, Filter, LayoutTemplate, Workflow, FileText, TrendingUp,
-  Check, X, Plus, Minus, MessageCircle, ArrowRight, ArrowUpRight, Calendar, Video,
-  Edit3, Film, Bot, Sparkles, Search, Play, ChevronLeft, ChevronRight, Instagram, Zap,
+  LayoutTemplate, Check, Plus, Minus, ArrowRight, ArrowUpRight, Calendar, Video,
+  Edit3, Film, Bot, Sparkles, Play, ChevronLeft, ChevronRight, Instagram, Zap,
 } from "lucide-react";
 import andresAsset from "@/assets/andres-muriel.png.asset.json";
 
