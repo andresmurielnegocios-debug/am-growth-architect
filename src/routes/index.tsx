@@ -228,7 +228,7 @@ function Marquee() {
     <section className="bg-cream border-t border-ink/10 py-6 overflow-hidden">
       <div className="flex marquee gap-12 whitespace-nowrap">
         {row.map((t, i) => (
-          <div key={i} className="flex items-center gap-12 text-ink/40 font-display font-extrabold tracking-tightest text-2xl">
+          <div key={i} className="flex items-center gap-12 text-ink font-display font-extrabold tracking-tightest text-2xl">
             <span>{t}</span>
             <span className="text-gold">✦</span>
           </div>
