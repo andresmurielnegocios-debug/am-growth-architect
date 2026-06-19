@@ -446,7 +446,7 @@ function Plans() {
               )}
               <div className="text-[10px] uppercase tracking-[0.3em] text-gold mb-2">{p.badge}</div>
               <h3 className="font-display font-extrabold text-2xl tracking-tightest mb-1">{p.name}</h3>
-              <p className="text-xs text-muted-foreground mb-6 min-h-[32px]">{p.target}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-6 min-h-[56px]">{p.target}</p>
 
               <div className="mb-6">
                 <div className="text-3xl font-display font-extrabold text-gold tracking-tightest">{p.cop}<span className="text-xs text-muted-foreground font-medium"> COP / mes</span></div>
@@ -464,6 +464,16 @@ function Plans() {
                 ))}
               </ul>
 
+              <div className="rounded-2xl border border-gold/30 bg-gold/5 p-4 mb-5">
+                <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-gold font-bold mb-1.5">
+                  <Zap className="w-3.5 h-3.5" /> Fondo de Optimización Creativa
+                </div>
+                <div className="text-sm text-foreground/90 font-semibold">+ $100.000 COP <span className="text-xs text-muted-foreground font-normal">(USD $29) · opcional</span></div>
+                <p className="text-[11px] text-muted-foreground leading-snug mt-1">
+                  Reserva mensual para refrescar creativos cuando la estrategia lo requiere.
+                </p>
+              </div>
+
               <div className="text-xs text-muted-foreground border-t border-white/5 pt-4 mb-5">
                 <div className="font-semibold text-foreground/80 mb-1.5">Ideal para:</div>
                 <div>{p.ideal}</div>
@@ -478,10 +488,6 @@ function Plans() {
             </motion.div>
           ))}
         </div>
-
-        <p className="mt-10 text-xs text-muted-foreground max-w-3xl">
-          <span className="text-gold font-semibold">Fondo de Optimización Creativa:</span> $100.000 COP (USD $29). Reserva opcional para refrescar creativos cuando la estrategia lo requiere.
-        </p>
       </div>
     </section>
   );
