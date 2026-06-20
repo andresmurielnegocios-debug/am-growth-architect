@@ -107,7 +107,7 @@ function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   return (
-    <section id="inicio" ref={ref} className="relative pt-28 md:pt-16 bg-cream text-ink overflow-hidden">
+    <section id="inicio" ref={ref} className="relative pt-32 md:pt-16 bg-cream text-ink overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-6 pt-12 pb-0">
         <div className="grid lg:grid-cols-[1.05fr_1fr] gap-10 items-start">
           {/* Left content */}
