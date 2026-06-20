@@ -115,7 +115,7 @@
   }
 
   .marquee {
-    animation: marquee 40s linear infinite;
+    animation: marquee 25s linear infinite;
   }
   @keyframes marquee {
     from { transform: translateX(0); }

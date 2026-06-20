@@ -73,11 +73,11 @@ function Nav() {
         scrolled ? "bg-cream/90 backdrop-blur-xl border-b border-black/5" : "bg-cream"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 grid grid-cols-[auto_1fr_auto] items-center gap-6">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 h-auto md:h-16 flex flex-col md:flex-row items-center justify-between gap-3 py-3 md:py-0">
         <a href="#inicio" className="flex items-center gap-2 text-ink">
           <span className="font-display font-extrabold text-xl tracking-tightest">muriel<span className="text-gold">.</span></span>
         </a>
-        <div className="hidden md:flex items-center justify-center gap-9 text-[13px] text-ink font-semibold">
+        <div className="flex items-center justify-center gap-5 md:gap-9 text-[12px] md:text-[13px] text-ink font-semibold">
           {[
             ["Inicio", "#inicio"],
             ["Sobre mí", "#sobre-mi"],
@@ -91,7 +91,7 @@ function Nav() {
             </a>
           ))}
         </div>
-        <a href={WA} target="_blank" rel="noreferrer" className="hidden md:inline-flex items-center gap-2 bg-ink text-cream rounded-full px-4 py-2 text-xs font-semibold hover:bg-ink/90 transition">
+        <a href={WA} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-ink text-cream rounded-full px-4 py-2 text-xs font-semibold hover:bg-ink/90 transition">
           Hablar conmigo <ArrowUpRight className="w-3.5 h-3.5" />
         </a>
       </div>
