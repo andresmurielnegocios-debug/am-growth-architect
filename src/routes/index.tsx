@@ -7,11 +7,11 @@ import {
 } from "lucide-react";
 import andresAsset from "@/assets/andres-muriel.png.asset.json";
 
-/* WhatsApp glyph (official-style) */
+/* WhatsApp icon (clean, centered glyph) */
 function WhatsAppIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" className={className} fill="currentColor" aria-hidden>
-      <path d="M19.11 17.21c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.2 5.07 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35zM16.02 5.33c-5.9 0-10.7 4.8-10.7 10.7 0 1.89.5 3.74 1.45 5.36L5 27l5.78-1.51a10.66 10.66 0 0 0 5.24 1.37h.01c5.89 0 10.7-4.8 10.7-10.7s-4.81-10.83-10.71-10.83zm6.27 16.97a8.84 8.84 0 0 1-6.27 2.59h-.01a8.86 8.86 0 0 1-4.5-1.23l-.32-.19-3.34.87.89-3.25-.21-.33A8.85 8.85 0 0 1 7.18 16.03c0-4.88 3.97-8.85 8.85-8.85a8.86 8.86 0 0 1 8.85 8.85c0 4.88-3.97 8.85-8.85 8.85h.26z"/>
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+      <path d="M12.04 2.001c-5.522 0-10.001 4.479-10.001 10.001 0 1.76.462 3.481 1.337 4.987l-1.467 4.38 4.476-1.466a9.981 9.981 0 0 0 5.655 1.731c5.521 0 10.001-4.48 10.001-10.001 0-5.522-4.48-10.001-10.001-10.001zm5.97 13.898c-.253.712-1.45 1.29-2.02 1.35-.57.08-1.12.24-2.5-.71-2.11-1.11-3.47-3.45-3.58-3.62-.11-.17-.92-1.22-.92-2.33 0-1.11.57-1.66.78-1.87.21-.21.45-.26.6-.26.15 0 .3 0 .48.01.18.01.42-.07.66.48.24.56.82 1.89.89 2.02.07.13.12.29.02.46-.1.17-.15.27-.3.42-.15.15-.33.33-.47.45-.16.14-.32.3-.14.61.18.31.81 1.31 1.74 2.09 1.2.96 2.21 1.26 2.53 1.39.32.13.5.12.69-.09.19-.2.81-.86.09-1.75-.29-.36-.71-.67-.94-.9-.2-.2-.28-.43-.15-.68.13-.25.34-.64.52-.89.18-.25.36-.51.54-.76.13-.18.26-.35.39-.53.1-.14.21-.29.3-.44.1-.15.11-.31.05-.47-.26-.76-.89-2.58-1.25-3.35-.34-.72-.98-1.16-1.65-1.16-.41 0-.74.02-1.06.05-.53.06-1.14.25-1.69.55-1.66.92-2.57 2.5-2.57 4.2 0 1.7 1.09 3.25 2.89 4.22.7.38 1.45.62 2.22.7.77.08 1.54-.03 2.28-.29.73-.26 1.4-.66 1.96-1.17.57-.51 1.02-1.12 1.33-1.79.31-.67.47-1.39.47-2.13 0-.74-.15-1.46-.44-2.13-.29-.67-.72-1.27-1.27-1.78-.55-.51-1.19-.91-1.89-1.16-.7-.25-1.44-.34-2.19-.28-.75.06-1.48.27-2.17.59-.87.39-1.59.96-2.14 1.67-.55.71-.86 1.54-.9 2.43-.04.89.14 1.77.56 2.56.42.79 1.05 1.43 1.81 1.88.76.45 1.63.68 2.51.67.88-.01 1.75-.26 2.51-.72.76-.46 1.39-1.11 1.82-1.88.43-.77.66-1.66.65-2.56z"/>
     </svg>
   );
 }
@@ -47,7 +47,6 @@ function Page() {
       <Services />
       <Plans />
       <Possibilities />
-      <Testimonials />
       <FAQ />
       <FinalCTA />
       <Footer />
@@ -542,62 +541,6 @@ function Possibilities() {
   );
 }
 
-/* ───────────────── TESTIMONIALS ───────────────── */
-const voices = [
-  { q: "El sistema cambió por completo nuestra forma de captar pacientes. Ahora tenemos agenda llena.", n: "Dr. Camilo R.", r: "Clínica odontológica" },
-  { q: "Pasamos de depender del voz a voz a tener un flujo constante de oportunidades calificadas.", n: "María Restrepo", r: "Constructora" },
-  { q: "Andrés no vende humo. Vende estructura, claridad y resultados medibles cada semana.", n: "Sebastián O.", r: "Marca personal" },
-];
-
-function Testimonials() {
-  return (
-    <section className="py-32 px-6 bg-background border-t border-white/5">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
-        <div>
-          <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— Voces del crecimiento</div>
-          <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl">
-            LO QUE DICEN<br />LOS NEGOCIOS.
-          </h2>
-          <p className="mt-6 text-muted-foreground max-w-md">
-            Resultados reales de quienes confiaron en el sistema. Estrategia, ejecución y mejora continua.
-          </p>
-          <svg viewBox="0 0 400 60" className="mt-10 w-full max-w-md text-gold/40">
-            <motion.path
-              initial={{ pathLength: 0 }}
-              whileInView={{ pathLength: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 2 }}
-              d="M0 30 Q 100 0, 200 30 T 400 30"
-              fill="none" stroke="currentColor" strokeWidth="1.5"
-            />
-          </svg>
-        </div>
-
-        <div className="space-y-4">
-          {voices.map((v, i) => (
-            <motion.div
-              key={v.n}
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="bg-card border border-white/8 rounded-2xl p-6 flex gap-5 items-start hover:border-gold/40 transition-colors"
-            >
-              <div className="flex-1">
-                <p className="text-foreground/90 leading-relaxed">"{v.q}"</p>
-                <div className="mt-4">
-                  <div className="font-semibold text-sm">{v.n}</div>
-                  <div className="text-xs text-muted-foreground">{v.r}</div>
-                </div>
-              </div>
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gold/40 to-gold/10 border border-white/10 shrink-0" />
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ───────────────── FAQ ───────────────── */
 const faqs = [
