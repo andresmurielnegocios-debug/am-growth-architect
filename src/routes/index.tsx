@@ -77,7 +77,7 @@ function Nav() {
         <a href="#inicio" className="flex items-center gap-2 text-ink">
           <span className="font-display font-extrabold text-xl tracking-tightest">muriel<span className="text-gold">.</span></span>
         </a>
-        <div className="flex items-center justify-center gap-5 md:gap-9 text-[12px] md:text-[13px] text-ink font-semibold">
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 md:gap-9 text-[12px] md:text-[13px] text-ink font-semibold">
           {[
             ["Inicio", "#inicio"],
             ["Sobre mí", "#sobre-mi"],
