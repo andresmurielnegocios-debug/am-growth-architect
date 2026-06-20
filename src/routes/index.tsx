@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "motion/react";
 import {
   LayoutTemplate, Check, Plus, Minus, ArrowRight, ArrowUpRight, Calendar, Video,
-  Edit3, Film, Bot, Sparkles, Play, ChevronLeft, ChevronRight, Instagram, Zap,
+  Edit3, Film, Bot, Sparkles, Play, Instagram, Zap,
 } from "lucide-react";
 import andresAsset from "@/assets/andres-muriel.png.asset.json";
 
@@ -107,7 +107,7 @@ function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   return (
-    <section id="inicio" ref={ref} className="relative pt-16 bg-cream text-ink overflow-hidden">
+    <section id="inicio" ref={ref} className="relative pt-28 md:pt-16 bg-cream text-ink overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-6 pt-12 pb-0">
         <div className="grid lg:grid-cols-[1.05fr_1fr] gap-10 items-start">
           {/* Left content */}
@@ -329,69 +329,47 @@ const services = [
 ];
 
 function Services() {
-  const [index, setIndex] = useState(0);
-  const perView = 3;
-  const max = Math.max(0, services.length - perView);
-  const go = (d: number) => setIndex((v) => Math.min(max, Math.max(0, v + d)));
-
   return (
     <section id="servicios" className="py-32 px-6 bg-background border-t border-white/5">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-end justify-between gap-6 mb-14">
-          <div>
-            <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— Mis servicios</div>
-            <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl">
-              SERVICIOS<br />PREMIUM.
-            </h2>
-          </div>
-          <div className="hidden md:flex items-center gap-3">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground select-none">Deslizar →</span>
-            <button onClick={() => go(-1)} disabled={index === 0} aria-label="Anterior" className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 hover:border-gold/50 disabled:opacity-30 transition">
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button onClick={() => go(1)} disabled={index >= max} aria-label="Siguiente" className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 hover:border-gold/50 disabled:opacity-30 transition">
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+        <div className="mb-14">
+          <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— Mis servicios</div>
+          <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl">
+            SERVICIOS<br />PREMIUM.
+          </h2>
         </div>
 
-        <div className="overflow-hidden">
-          <motion.div
-            animate={{ x: `calc(${-index} * (100% / 3) - ${index} * 1.25rem)` }}
-            transition={{ type: "spring", stiffness: 120, damping: 22 }}
-            className="flex gap-5"
-          >
-            {services.map(({ icon: Icon, ...s }, i) => (
-              <motion.div
-                key={s.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
-                whileHover={{ y: -6 }}
-                className="shrink-0 w-full md:w-[calc((100%-2.5rem)/3)] rounded-3xl bg-card border border-white/5 p-7 flex flex-col group hover:border-gold/40 transition-colors"
-              >
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition">
-                  <Icon className="w-5 h-5 text-gold stroke-[1.5]" />
-                </div>
-                <h3 className="font-display font-extrabold text-2xl tracking-tightest mb-1">{s.name}</h3>
-                <p className="text-sm text-muted-foreground mb-5">{s.sub}</p>
-                <div className="mb-5">
-                  <div className="text-2xl font-display font-extrabold text-gold tracking-tightest">{s.price}</div>
-                  {s.priceUsd && <div className="text-xs text-muted-foreground mt-0.5">{s.priceUsd}</div>}
-                  {s.note && <div className="text-xs text-muted-foreground mt-1.5">{s.note}</div>}
-                </div>
-                <ul className="space-y-2 text-sm text-muted-foreground flex-1">
-                  {s.features.map((f) => (
-                    <li key={f} className="flex gap-2"><Check className="w-4 h-4 text-gold shrink-0 mt-0.5 stroke-[2.5]" /><span>{f}</span></li>
-                  ))}
-                </ul>
-                <a href={WA} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold group/link">
-                  Cotizar <ArrowUpRight className="w-4 h-4 group-hover/link:rotate-45 transition-transform" />
-                </a>
-              </motion.div>
-            ))}
-          </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {services.map(({ icon: Icon, ...s }, i) => (
+            <motion.div
+              key={s.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: (i % 4) * 0.1 }}
+              whileHover={{ y: -6 }}
+              className="rounded-3xl bg-card border border-white/5 p-7 flex flex-col group hover:border-gold/40 transition-colors"
+            >
+              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition">
+                <Icon className="w-5 h-5 text-gold stroke-[1.5]" />
+              </div>
+              <h3 className="font-display font-extrabold text-2xl tracking-tightest mb-1">{s.name}</h3>
+              <p className="text-sm text-muted-foreground mb-5">{s.sub}</p>
+              <div className="mb-5">
+                <div className="text-2xl font-display font-extrabold text-gold tracking-tightest">{s.price}</div>
+                {s.priceUsd && <div className="text-xs text-muted-foreground mt-0.5">{s.priceUsd}</div>}
+                {s.note && <div className="text-xs text-muted-foreground mt-1.5">{s.note}</div>}
+              </div>
+              <ul className="space-y-2 text-sm text-muted-foreground flex-1">
+                {s.features.map((f) => (
+                  <li key={f} className="flex gap-2"><Check className="w-4 h-4 text-gold shrink-0 mt-0.5 stroke-[2.5]" /><span>{f}</span></li>
+                ))}
+              </ul>
+              <a href={WA} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold group/link">
+                Cotizar <ArrowUpRight className="w-4 h-4 group-hover/link:rotate-45 transition-transform" />
+              </a>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
