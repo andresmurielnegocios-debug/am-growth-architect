@@ -720,9 +720,9 @@ function FloatingWA() {
       animate={{ scale: 1 }}
       transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 15 }}
       whileHover={{ scale: 1.08 }}
-      className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(37,211,102,0.6)]"
+      className="fixed bottom-6 right-6 z-50 bg-white text-black w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(0,0,0,0.4)] border border-black/5"
     >
-      <WhatsAppIcon className="w-8 h-8" />
+      <WhatsAppIcon className="w-7 h-7" />
     </motion.a>
   );
 }
