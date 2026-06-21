@@ -10,8 +10,8 @@ import andresAsset from "@/assets/andres-muriel.png.asset.json";
 /* WhatsApp icon (clean, centered glyph) */
 function WhatsAppIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M12.04 2.001c-5.522 0-10.001 4.479-10.001 10.001 0 1.76.462 3.481 1.337 4.987l-1.467 4.38 4.476-1.466a9.981 9.981 0 0 0 5.655 1.731c5.521 0 10.001-4.48 10.001-10.001 0-5.522-4.48-10.001-10.001-10.001zm5.97 13.898c-.253.712-1.45 1.29-2.02 1.35-.57.08-1.12.24-2.5-.71-2.11-1.11-3.47-3.45-3.58-3.62-.11-.17-.92-1.22-.92-2.33 0-1.11.57-1.66.78-1.87.21-.21.45-.26.6-.26.15 0 .3 0 .48.01.18.01.42-.07.66.48.24.56.82 1.89.89 2.02.07.13.12.29.02.46-.1.17-.15.27-.3.42-.15.15-.33.33-.47.45-.16.14-.32.3-.14.61.18.31.81 1.31 1.74 2.09 1.2.96 2.21 1.26 2.53 1.39.32.13.5.12.69-.09.19-.2.81-.86.09-1.75-.29-.36-.71-.67-.94-.9-.2-.2-.28-.43-.15-.68.13-.25.34-.64.52-.89.18-.25.36-.51.54-.76.13-.18.26-.35.39-.53.1-.14.21-.29.3-.44.1-.15.11-.31.05-.47-.26-.76-.89-2.58-1.25-3.35-.34-.72-.98-1.16-1.65-1.16-.41 0-.74.02-1.06.05-.53.06-1.14.25-1.69.55-1.66.92-2.57 2.5-2.57 4.2 0 1.7 1.09 3.25 2.89 4.22.7.38 1.45.62 2.22.7.77.08 1.54-.03 2.28-.29.73-.26 1.4-.66 1.96-1.17.57-.51 1.02-1.12 1.33-1.79.31-.67.47-1.39.47-2.13 0-.74-.15-1.46-.44-2.13-.29-.67-.72-1.27-1.27-1.78-.55-.51-1.19-.91-1.89-1.16-.7-.25-1.44-.34-2.19-.28-.75.06-1.48.27-2.17.59-.87.39-1.59.96-2.14 1.67-.55.71-.86 1.54-.9 2.43-.04.89.14 1.77.56 2.56.42.79 1.05 1.43 1.81 1.88.76.45 1.63.68 2.51.67.88-.01 1.75-.26 2.51-.72.76-.46 1.39-1.11 1.82-1.88.43-.77.66-1.66.65-2.56z"/>
+    <svg viewBox="0 0 32 32" className={className} fill="currentColor" aria-hidden>
+      <path d="M16.003 3C8.82 3 3 8.82 3 16c0 2.293.6 4.53 1.74 6.5L3 29l6.66-1.72A12.9 12.9 0 0 0 16.003 29C23.183 29 29 23.18 29 16S23.183 3 16.003 3zm0 23.6c-2.02 0-3.99-.54-5.72-1.56l-.41-.24-3.95 1.02 1.05-3.85-.27-.42a10.55 10.55 0 0 1-1.63-5.55c0-5.85 4.76-10.6 10.61-10.6 5.85 0 10.6 4.75 10.6 10.6s-4.75 10.6-10.6 10.6zm6.07-7.94c-.33-.17-1.97-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.08-1.04 1.3-.19.22-.39.25-.72.08-.33-.17-1.4-.52-2.67-1.65-.99-.88-1.66-1.97-1.85-2.3-.19-.33-.02-.51.14-.68.15-.15.33-.39.5-.58.17-.19.22-.33.33-.55.11-.22.06-.41-.03-.58-.08-.17-.74-1.78-1.01-2.44-.27-.65-.55-.56-.74-.57-.19-.01-.41-.01-.63-.01-.22 0-.58.08-.88.41-.3.33-1.15 1.12-1.15 2.73 0 1.61 1.18 3.17 1.34 3.39.17.22 2.32 3.55 5.62 4.98.79.34 1.4.54 1.88.69.79.25 1.51.21 2.08.13.63-.09 1.97-.8 2.25-1.58.28-.78.28-1.45.2-1.58-.08-.14-.3-.22-.63-.39z"/>
     </svg>
   );
 }
@@ -58,25 +58,38 @@ function Page() {
 /* ───────────────── NAV ───────────────── */
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [dark, setDark] = useState(false);
   useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 40);
+    const h = () => {
+      setScrolled(window.scrollY > 40);
+      const about = document.getElementById("sobre-mi");
+      const threshold = about ? about.offsetTop - 80 : window.innerHeight;
+      setDark(window.scrollY > threshold);
+    };
     h(); window.addEventListener("scroll", h);
-    return () => window.removeEventListener("scroll", h);
+    window.addEventListener("resize", h);
+    return () => { window.removeEventListener("scroll", h); window.removeEventListener("resize", h); };
   }, []);
+  const textColor = dark ? "text-cream" : "text-ink";
+  const ctaBg = dark ? "bg-cream text-ink hover:bg-cream/90" : "bg-ink text-cream hover:bg-ink/90";
   return (
     <motion.nav
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-cream/90 backdrop-blur-xl border-b border-black/5" : "bg-cream"
+        dark
+          ? "bg-background/85 backdrop-blur-xl border-b border-white/10"
+          : scrolled
+            ? "bg-cream/90 backdrop-blur-xl border-b border-black/5"
+            : "bg-cream"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6 h-auto md:h-16 flex flex-col md:flex-row items-center justify-between gap-3 py-3 md:py-0">
-        <a href="#inicio" className="flex items-center gap-2 text-ink">
+        <a href="#inicio" className={`flex items-center gap-2 ${textColor}`}>
           <span className="font-display font-extrabold text-xl tracking-tightest">muriel<span className="text-gold">.</span></span>
         </a>
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 md:gap-9 text-[12px] md:text-[13px] text-ink font-semibold">
+        <div className={`flex flex-wrap items-center justify-center gap-x-5 gap-y-1 md:gap-9 text-[12px] md:text-[13px] ${textColor} font-semibold`}>
           {[
             ["Inicio", "#inicio"],
             ["Sobre mí", "#sobre-mi"],
@@ -90,7 +103,7 @@ function Nav() {
             </a>
           ))}
         </div>
-        <a href={WA} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-ink text-cream rounded-full px-4 py-2 text-xs font-semibold hover:bg-ink/90 transition">
+        <a href={WA} target="_blank" rel="noreferrer" className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition ${ctaBg}`}>
           Hablar conmigo <ArrowUpRight className="w-3.5 h-3.5" />
         </a>
       </div>
@@ -329,8 +342,13 @@ const services = [
 
 function Services() {
   return (
-    <section id="servicios" className="py-32 px-6 bg-background border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
+    <section id="servicios" className="relative py-32 px-6 bg-background border-t border-white/5 overflow-hidden">
+      {/* Ambient glass aurora */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60">
+        <div className="absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full bg-gold/20 blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full bg-cyan-500/10 blur-[120px]" />
+      </div>
+      <div className="relative max-w-7xl mx-auto">
         <div className="mb-14">
           <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— Mis servicios</div>
           <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl">
@@ -347,9 +365,9 @@ function Services() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: (i % 4) * 0.1 }}
               whileHover={{ y: -6 }}
-              className="rounded-3xl bg-card border border-white/5 p-7 flex flex-col group hover:border-gold/40 transition-colors"
+              className="glass-card rounded-3xl p-7 flex flex-col group hover:border-gold/40 transition-colors"
             >
-              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition">
+              <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur flex items-center justify-center mb-6 group-hover:bg-gold/20 transition border border-white/10">
                 <Icon className="w-5 h-5 text-gold stroke-[1.5]" />
               </div>
               <h3 className="font-display font-extrabold text-2xl tracking-tightest mb-1">{s.name}</h3>
@@ -393,8 +411,12 @@ const plans = [
 
 function Plans() {
   return (
-    <section id="planes" className="py-32 px-6 bg-background border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
+    <section id="planes" className="relative py-32 px-6 bg-background border-t border-white/5 overflow-hidden">
+      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60">
+        <div className="absolute top-1/3 -right-20 w-[460px] h-[460px] rounded-full bg-gold/15 blur-[140px]" />
+        <div className="absolute -bottom-20 left-0 w-[420px] h-[420px] rounded-full bg-violet-500/10 blur-[140px]" />
+      </div>
+      <div className="relative max-w-7xl mx-auto">
         <div className="max-w-3xl mb-16">
           <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— Planes de crecimiento</div>
           <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl lg:text-7xl">
@@ -411,8 +433,8 @@ function Plans() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
               whileHover={{ y: -8 }}
-              className={`relative flex flex-col rounded-3xl p-7 border transition-colors ${
-                p.featured ? "border-gold bg-card gold-glow" : "border-white/8 bg-card hover:border-gold/40"
+              className={`glass-card relative flex flex-col rounded-3xl p-7 transition-colors ${
+                p.featured ? "glass-card-featured gold-glow" : "hover:border-gold/40"
               }`}
             >
               {p.featured && (
@@ -707,9 +729,9 @@ function FloatingWA() {
       animate={{ scale: 1 }}
       transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 15 }}
       whileHover={{ scale: 1.08 }}
-      className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(37,211,102,0.6)]"
+      className="fixed bottom-6 right-6 z-50 bg-white text-black w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(0,0,0,0.4)] border border-black/5"
     >
-      <WhatsAppIcon className="w-8 h-8" />
+      <WhatsAppIcon className="w-7 h-7" />
     </motion.a>
   );
 }
