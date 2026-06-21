@@ -411,8 +411,12 @@ const plans = [
 
 function Plans() {
   return (
-    <section id="planes" className="py-32 px-6 bg-background border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
+    <section id="planes" className="relative py-32 px-6 bg-background border-t border-white/5 overflow-hidden">
+      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60">
+        <div className="absolute top-1/3 -right-20 w-[460px] h-[460px] rounded-full bg-gold/15 blur-[140px]" />
+        <div className="absolute -bottom-20 left-0 w-[420px] h-[420px] rounded-full bg-violet-500/10 blur-[140px]" />
+      </div>
+      <div className="relative max-w-7xl mx-auto">
         <div className="max-w-3xl mb-16">
           <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— Planes de crecimiento</div>
           <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl lg:text-7xl">
@@ -429,8 +433,8 @@ function Plans() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
               whileHover={{ y: -8 }}
-              className={`relative flex flex-col rounded-3xl p-7 border transition-colors ${
-                p.featured ? "border-gold bg-card gold-glow" : "border-white/8 bg-card hover:border-gold/40"
+              className={`glass-card relative flex flex-col rounded-3xl p-7 transition-colors ${
+                p.featured ? "glass-card-featured gold-glow" : "hover:border-gold/40"
               }`}
             >
               {p.featured && (
