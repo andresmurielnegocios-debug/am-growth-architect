@@ -703,13 +703,13 @@ function FloatingWA() {
     <motion.a
       href={WA} target="_blank" rel="noreferrer"
       aria-label="Hablar por WhatsApp"
-      initial={{ scale: 0, rotate: -45 }}
-      animate={{ scale: 1, rotate: 0 }}
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
       transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 15 }}
       whileHover={{ scale: 1.08 }}
       className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(37,211,102,0.6)]"
     >
-      <WhatsAppIcon className="w-7 h-7" />
+      <WhatsAppIcon className="w-8 h-8" />
     </motion.a>
   );
 }
