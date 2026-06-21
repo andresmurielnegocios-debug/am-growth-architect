@@ -342,8 +342,13 @@ const services = [
 
 function Services() {
   return (
-    <section id="servicios" className="py-32 px-6 bg-background border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
+    <section id="servicios" className="relative py-32 px-6 bg-background border-t border-white/5 overflow-hidden">
+      {/* Ambient glass aurora */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60">
+        <div className="absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full bg-gold/20 blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full bg-cyan-500/10 blur-[120px]" />
+      </div>
+      <div className="relative max-w-7xl mx-auto">
         <div className="mb-14">
           <div className="text-[11px] uppercase tracking-[0.3em] text-gold mb-4">— Mis servicios</div>
           <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl">
@@ -360,9 +365,9 @@ function Services() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: (i % 4) * 0.1 }}
               whileHover={{ y: -6 }}
-              className="rounded-3xl bg-card border border-white/5 p-7 flex flex-col group hover:border-gold/40 transition-colors"
+              className="glass-card rounded-3xl p-7 flex flex-col group hover:border-gold/40 transition-colors"
             >
-              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition">
+              <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur flex items-center justify-center mb-6 group-hover:bg-gold/20 transition border border-white/10">
                 <Icon className="w-5 h-5 text-gold stroke-[1.5]" />
               </div>
               <h3 className="font-display font-extrabold text-2xl tracking-tightest mb-1">{s.name}</h3>
