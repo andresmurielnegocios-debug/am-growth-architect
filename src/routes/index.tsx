@@ -6,6 +6,7 @@ import {
   Edit3, Film, Bot, Sparkles, Play, Instagram, Zap,
 } from "lucide-react";
 import andresAsset from "@/assets/andres-muriel.png.asset.json";
+import logoAsset from "@/assets/logo-am.png.asset.json";
 
 /* WhatsApp icon (clean, centered glyph) */
 function WhatsAppIcon({ className = "w-6 h-6" }: { className?: string }) {
