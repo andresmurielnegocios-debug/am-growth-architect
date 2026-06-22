@@ -154,6 +154,27 @@ function Hero() {
               <span>Estratega · Growth Partner</span>
             </motion.div>
 
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6, rotate: -12, y: -20 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
+              transition={{ duration: 1.1, ease: [0.2, 0.8, 0.2, 1], delay: 0.15 }}
+              className="mb-6 relative inline-block"
+            >
+              <motion.img
+                src={logoAsset.url}
+                alt="Logo Andrés Muriel — Estratega Digital"
+                className="h-24 md:h-32 lg:h-40 w-auto object-contain drop-shadow-[0_10px_30px_rgba(212,175,55,0.45)] mix-blend-multiply"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.span
+                aria-hidden
+                className="absolute -inset-4 rounded-full bg-gold/20 blur-2xl -z-10"
+                animate={{ opacity: [0.35, 0.7, 0.35], scale: [0.9, 1.05, 0.9] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </motion.div>
+
             <motion.h1
               initial="hidden" animate="show" custom={1} variants={fadeUp}
               className="font-display font-extrabold tracking-tightest leading-[0.88] text-[64px] sm:text-[88px] lg:text-[124px]"
