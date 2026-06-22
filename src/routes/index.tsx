@@ -706,7 +706,7 @@ function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 pb-14 border-b border-white/8">
           <div>
-            <div className="font-display font-extrabold text-2xl tracking-tightest">muriel<span className="text-gold">.</span></div>
+            <img src={logoAsset.url} alt="Andrés Muriel" className="h-16 w-auto object-contain" />
             <p className="mt-4 text-sm text-muted-foreground max-w-xs">
               Estratega Digital & Growth Partner. Sistemas de crecimiento para negocios que quieren resultados reales.
             </p>
