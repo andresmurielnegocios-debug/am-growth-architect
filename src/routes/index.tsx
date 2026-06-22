@@ -515,7 +515,6 @@ function Plans() {
 /* ───────────────── POSSIBILITIES (split image + tags) ───────────────── */
 function Possibilities() {
   const tags = ["Publicidad", "Embudos", "Automatización", "Landing", "Contenido", "CRO"];
-  const [active, setActive] = useState(0);
   return (
     <section className="py-32 px-6 bg-background border-t border-white/5">
       <div className="max-w-7xl mx-auto">
@@ -530,17 +529,14 @@ function Possibilities() {
         </motion.h2>
 
         <div className="grid lg:grid-cols-[180px_1fr_1fr] gap-8 items-center">
-          <div className="flex lg:flex-col gap-2 flex-wrap">
-            {tags.map((t, i) => (
-              <button
+          <div className="flex lg:flex-col gap-2 flex-wrap" aria-hidden>
+            {tags.map((t) => (
+              <span
                 key={t}
-                onClick={() => setActive(i)}
-                className={`text-left text-sm px-4 py-2 rounded-full border transition ${
-                  active === i ? "bg-gold text-primary-foreground border-gold" : "border-white/10 text-muted-foreground hover:text-foreground hover:border-white/30"
-                }`}
+                className="text-left text-sm px-4 py-2 rounded-full border border-white/10 text-muted-foreground select-none cursor-default"
               >
                 {t}
-              </button>
+              </span>
             ))}
           </div>
 
