@@ -91,18 +91,11 @@ function Nav() {
       <div className="max-w-7xl mx-auto px-4 md:px-6 h-auto md:h-20 flex flex-col md:flex-row items-center justify-between gap-3 py-3 md:py-0">
         <motion.a
           href="#inicio"
-          className={`flex items-center gap-2 ${textColor}`}
+          className={`font-display font-extrabold tracking-tightest text-lg md:text-xl ${textColor}`}
           whileHover={{ scale: 1.04 }}
           transition={{ type: "spring", stiffness: 300, damping: 18 }}
         >
-          <motion.img
-            src={logoAsset.url}
-            alt="Andrés Muriel"
-            className={`h-12 md:h-14 w-auto object-contain drop-shadow-[0_2px_8px_rgba(212,175,55,0.35)] ${dark ? "" : "mix-blend-multiply"}`}
-            initial={{ opacity: 0, rotate: -8, scale: 0.8 }}
-            animate={{ opacity: 1, rotate: 0, scale: 1 }}
-            transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-          />
+          Andrés Muriel.
         </motion.a>
         <div className={`flex flex-wrap items-center justify-center gap-x-5 gap-y-1 md:gap-9 text-[12px] md:text-[13px] ${textColor} font-semibold`}>
           {[
@@ -149,30 +142,8 @@ function Hero() {
               initial="hidden" animate="show" custom={0} variants={fadeUp}
               className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-ink/60 mb-8"
             >
-              <span className="font-mono">01</span>
               <span className="w-8 h-px bg-ink/30" />
               <span>Estratega · Growth Partner</span>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6, rotate: -12, y: -20 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
-              transition={{ duration: 1.1, ease: [0.2, 0.8, 0.2, 1], delay: 0.15 }}
-              className="mb-6 relative inline-block"
-            >
-              <motion.img
-                src={logoAsset.url}
-                alt="Logo Andrés Muriel — Estratega Digital"
-                className="h-24 md:h-32 lg:h-40 w-auto object-contain drop-shadow-[0_10px_30px_rgba(212,175,55,0.45)] mix-blend-multiply"
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <motion.span
-                aria-hidden
-                className="absolute -inset-4 rounded-full bg-gold/20 blur-2xl -z-10"
-                animate={{ opacity: [0.35, 0.7, 0.35], scale: [0.9, 1.05, 0.9] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              />
             </motion.div>
 
             <motion.h1
@@ -376,10 +347,10 @@ const services = [
   { icon: Calendar, name: "Booking Pro™", sub: "Sistema profesional de agendamiento", price: "$600.000 COP", priceUsd: "USD $176", note: "Mantenimiento: $65.000/mes", features: ["Reservas online", "Confirmaciones automáticas", "Gestión de horarios", "Optimizado móviles"] },
   { icon: LayoutTemplate, name: "Landing Page", sub: "Página profesional de conversión", price: "$550.000 COP", priceUsd: "USD $162", features: ["Diseño profesional", "Copywriting persuasivo", "Integración WhatsApp", "Optimizada para conversión"] },
   { icon: Video, name: "Authority Video™", sub: "Video estratégico de autoridad", price: "$430.000 COP", priceUsd: "USD $126", features: ["Guion estratégico", "Estructura de embudo", "Grabación & edición pro", "Copy persuasivo"] },
-  { icon: Edit3, name: "Social Edit™", sub: "Edición profesional para redes", price: "$150.000 COP", priceUsd: "USD $44", features: ["Audio + música libre", "Subtítulos", "Cortes dinámicos", "Formato adaptable"] },
-  { icon: Sparkles, name: "Creator Elite™", sub: "Edición premium de alto impacto", price: "$250.000 COP", priceUsd: "USD $74", features: ["Diseño sonoro", "Subtítulos dinámicos", "B-Rolls + efectos", "Retención optimizada"] },
-  { icon: Film, name: "Creator Elite™ Long", sub: "Videos de más de 4 min", price: "$320.000 COP", priceUsd: "USD $94", features: ["Edición avanzada", "Narrativa optimizada", "Diseño sonoro", "Retención sostenida"] },
-  { icon: Bot, name: "WhatsApp Sales™", sub: "Automatización estratégica", price: "Según alcance", priceUsd: "", features: ["Automatización respuestas", "Captación prospectos", "Flujos seguimiento", "Integración campañas"] },
+  { icon: Edit3, name: "Edición de video profesional para redes", sub: "Edición profesional para redes sociales", price: "$150.000 COP", priceUsd: "USD $44", features: ["Audio + música libre", "Subtítulos", "Cortes dinámicos", "Formato adaptable"] },
+  { icon: Sparkles, name: "Creator Elite™", sub: "Edición de video premium de alto impacto", price: "$250.000 COP", priceUsd: "USD $74", features: ["Diseño sonoro", "Subtítulos dinámicos", "B-Rolls + efectos", "Retención optimizada"] },
+  { icon: Film, name: "Creator Elite™ Long", sub: "Edición de videos de más de 4 minutos", price: "$320.000 COP", priceUsd: "USD $94", features: ["Edición avanzada", "Narrativa optimizada", "Diseño sonoro", "Retención sostenida"] },
+  { icon: Bot, name: "WhatsApp Sales™", sub: "Automatización de WhatsApp Business para clientes de alto impacto", price: "Según alcance", priceUsd: "", features: ["Automatización respuestas", "Captación prospectos", "Flujos seguimiento", "Integración campañas"] },
 ];
 
 function Services() {
@@ -396,6 +367,14 @@ function Services() {
           <h2 className="font-display font-extrabold tracking-tightest leading-[0.9] text-5xl md:text-6xl">
             SERVICIOS<br />PREMIUM.
           </h2>
+          <div className="mt-8">
+            <h3 className="font-display font-extrabold tracking-tightest leading-[0.9] text-3xl md:text-4xl text-gold">
+              PRECIOS DE LANZAMIENTO.
+            </h3>
+            <p className="mt-2 text-sm md:text-base text-muted-foreground">
+              Se actualizarán en 2 meses los precios oficiales.
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -415,7 +394,7 @@ function Services() {
               <h3 className="font-display font-extrabold text-2xl tracking-tightest mb-1">{s.name}</h3>
               <p className="text-sm text-muted-foreground mb-5">{s.sub}</p>
               <div className="mb-5">
-                <div className="text-2xl font-display font-extrabold text-gold tracking-tightest">{s.price}</div>
+                <div className="text-2xl font-display font-extrabold text-gold tracking-tightest">Desde {s.price}</div>
                 {s.priceUsd && <div className="text-xs text-muted-foreground mt-0.5">{s.priceUsd}</div>}
                 {s.note && <div className="text-xs text-muted-foreground mt-1.5">{s.note}</div>}
               </div>
@@ -489,7 +468,7 @@ function Plans() {
               <p className="text-xs text-muted-foreground leading-relaxed mb-6 min-h-[56px]">{p.target}</p>
 
               <div className="mb-6">
-                <div className="text-3xl font-display font-extrabold text-gold tracking-tightest">{p.cop}<span className="text-xs text-muted-foreground font-medium"> COP / mes</span></div>
+                <div className="text-3xl font-display font-extrabold text-gold tracking-tightest">Desde {p.cop}<span className="text-xs text-muted-foreground font-medium"> COP / mes</span></div>
                 <div className="text-xs text-muted-foreground mt-1">{p.usd}</div>
               </div>
 
@@ -704,13 +683,22 @@ function Footer() {
   return (
     <footer className="bg-background border-t border-white/5 pt-20 pb-10 px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 pb-14 border-b border-white/8">
-          <div>
-            <img src={logoAsset.url} alt="Andrés Muriel" className="h-16 w-auto object-contain" />
-            <p className="mt-4 text-sm text-muted-foreground max-w-xs">
-              Estratega Digital & Growth Partner. Sistemas de crecimiento para negocios que quieren resultados reales.
-            </p>
-          </div>
+          <div className="grid lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 pb-14 border-b border-white/8">
+            <div>
+              <motion.img
+                src={logoAsset.url}
+                alt="Andrés Muriel"
+                className="h-24 md:h-32 w-auto object-contain drop-shadow-[0_8px_30px_rgba(212,175,55,0.45)]"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                whileHover={{ scale: 1.05 }}
+              />
+              <p className="mt-4 text-sm text-muted-foreground max-w-xs">
+                Estratega Digital & Growth Partner. Sistemas de crecimiento para negocios que quieren resultados reales.
+              </p>
+            </div>
           <div>
             <div className="text-xs uppercase tracking-[0.25em] text-foreground/60 mb-4">Contacto</div>
             <ul className="space-y-2 text-sm text-muted-foreground">
