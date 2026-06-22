@@ -6,6 +6,7 @@ import {
   Edit3, Film, Bot, Sparkles, Play, Instagram, Zap,
 } from "lucide-react";
 import andresAsset from "@/assets/andres-muriel.png.asset.json";
+import logoAsset from "@/assets/logo-am.png.asset.json";
 
 /* WhatsApp icon (clean, centered glyph) */
 function WhatsAppIcon({ className = "w-6 h-6" }: { className?: string }) {
@@ -71,7 +72,9 @@ function Nav() {
     return () => { window.removeEventListener("scroll", h); window.removeEventListener("resize", h); };
   }, []);
   const textColor = dark ? "text-cream" : "text-ink";
-  const ctaBg = dark ? "bg-cream text-ink hover:bg-cream/90" : "bg-ink text-cream hover:bg-ink/90";
+  const ctaBg = dark
+    ? "bg-cream text-ink hover:bg-cream/90"
+    : "bg-white text-ink border border-ink/15 hover:bg-ink/5";
   return (
     <motion.nav
       initial={{ y: -40, opacity: 0 }}
@@ -85,10 +88,22 @@ function Nav() {
             : "bg-cream"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-6 h-auto md:h-16 flex flex-col md:flex-row items-center justify-between gap-3 py-3 md:py-0">
-        <a href="#inicio" className={`flex items-center gap-2 ${textColor}`}>
-          <span className="font-display font-extrabold text-xl tracking-tightest">muriel<span className="text-gold">.</span></span>
-        </a>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 h-auto md:h-20 flex flex-col md:flex-row items-center justify-between gap-3 py-3 md:py-0">
+        <motion.a
+          href="#inicio"
+          className={`flex items-center gap-2 ${textColor}`}
+          whileHover={{ scale: 1.04 }}
+          transition={{ type: "spring", stiffness: 300, damping: 18 }}
+        >
+          <motion.img
+            src={logoAsset.url}
+            alt="Andrés Muriel"
+            className={`h-12 md:h-14 w-auto object-contain drop-shadow-[0_2px_8px_rgba(212,175,55,0.35)] ${dark ? "" : "mix-blend-multiply"}`}
+            initial={{ opacity: 0, rotate: -8, scale: 0.8 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+          />
+        </motion.a>
         <div className={`flex flex-wrap items-center justify-center gap-x-5 gap-y-1 md:gap-9 text-[12px] md:text-[13px] ${textColor} font-semibold`}>
           {[
             ["Inicio", "#inicio"],
@@ -103,9 +118,15 @@ function Nav() {
             </a>
           ))}
         </div>
-        <a href={WA} target="_blank" rel="noreferrer" className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition ${ctaBg}`}>
+        <motion.a
+          href={WA} target="_blank" rel="noreferrer"
+          whileHover={{ scale: 1.06, y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 16 }}
+          className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition ${ctaBg}`}
+        >
           Hablar conmigo <ArrowUpRight className="w-3.5 h-3.5" />
-        </a>
+        </motion.a>
       </div>
     </motion.nav>
   );
@@ -131,6 +152,27 @@ function Hero() {
               <span className="font-mono">01</span>
               <span className="w-8 h-px bg-ink/30" />
               <span>Estratega · Growth Partner</span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6, rotate: -12, y: -20 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
+              transition={{ duration: 1.1, ease: [0.2, 0.8, 0.2, 1], delay: 0.15 }}
+              className="mb-6 relative inline-block"
+            >
+              <motion.img
+                src={logoAsset.url}
+                alt="Logo Andrés Muriel — Estratega Digital"
+                className="h-24 md:h-32 lg:h-40 w-auto object-contain drop-shadow-[0_10px_30px_rgba(212,175,55,0.45)] mix-blend-multiply"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.span
+                aria-hidden
+                className="absolute -inset-4 rounded-full bg-gold/20 blur-2xl -z-10"
+                animate={{ opacity: [0.35, 0.7, 0.35], scale: [0.9, 1.05, 0.9] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
             </motion.div>
 
             <motion.h1
@@ -466,7 +508,7 @@ function Plans() {
                 <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-gold font-bold mb-1.5">
                   <Zap className="w-3.5 h-3.5" /> Fondo de Optimización Creativa
                 </div>
-                <div className="text-sm text-foreground/90 font-semibold">+ $100.000 COP <span className="text-xs text-muted-foreground font-normal">(USD $29) · opcional</span></div>
+                <div className="text-sm text-foreground/90 font-semibold">+ $100.000 COP <span className="text-xs text-muted-foreground font-normal">(USD $29)</span></div>
                 <p className="text-[11px] text-muted-foreground leading-snug mt-1">
                   Reserva mensual para refrescar creativos cuando la estrategia lo requiere.
                 </p>
@@ -494,7 +536,6 @@ function Plans() {
 /* ───────────────── POSSIBILITIES (split image + tags) ───────────────── */
 function Possibilities() {
   const tags = ["Publicidad", "Embudos", "Automatización", "Landing", "Contenido", "CRO"];
-  const [active, setActive] = useState(0);
   return (
     <section className="py-32 px-6 bg-background border-t border-white/5">
       <div className="max-w-7xl mx-auto">
@@ -509,17 +550,14 @@ function Possibilities() {
         </motion.h2>
 
         <div className="grid lg:grid-cols-[180px_1fr_1fr] gap-8 items-center">
-          <div className="flex lg:flex-col gap-2 flex-wrap">
-            {tags.map((t, i) => (
-              <button
+          <div className="flex lg:flex-col gap-2 flex-wrap" aria-hidden>
+            {tags.map((t) => (
+              <span
                 key={t}
-                onClick={() => setActive(i)}
-                className={`text-left text-sm px-4 py-2 rounded-full border transition ${
-                  active === i ? "bg-gold text-primary-foreground border-gold" : "border-white/10 text-muted-foreground hover:text-foreground hover:border-white/30"
-                }`}
+                className="text-left text-sm px-4 py-2 rounded-full border border-white/10 text-muted-foreground select-none cursor-default"
               >
                 {t}
-              </button>
+              </span>
             ))}
           </div>
 
@@ -668,7 +706,7 @@ function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 pb-14 border-b border-white/8">
           <div>
-            <div className="font-display font-extrabold text-2xl tracking-tightest">muriel<span className="text-gold">.</span></div>
+            <img src={logoAsset.url} alt="Andrés Muriel" className="h-16 w-auto object-contain" />
             <p className="mt-4 text-sm text-muted-foreground max-w-xs">
               Estratega Digital & Growth Partner. Sistemas de crecimiento para negocios que quieren resultados reales.
             </p>
@@ -725,13 +763,23 @@ function FloatingWA() {
     <motion.a
       href={WA} target="_blank" rel="noreferrer"
       aria-label="Hablar por WhatsApp"
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 15 }}
-      whileHover={{ scale: 1.08 }}
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{
+        scale: [1, 1.08, 1],
+        opacity: 1,
+        y: [0, -6, 0],
+      }}
+      transition={{
+        scale: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
+        y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+        opacity: { duration: 0.6, delay: 1.2 },
+      }}
+      whileHover={{ scale: 1.18, rotate: -8 }}
+      whileTap={{ scale: 0.9, rotate: 6 }}
       className="fixed bottom-6 right-6 z-50 bg-white text-black w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(0,0,0,0.4)] border border-black/5"
     >
-      <WhatsAppIcon className="w-7 h-7" />
+      <span aria-hidden className="absolute inset-0 rounded-full bg-white animate-ping opacity-40" />
+      <WhatsAppIcon className="w-7 h-7 relative" />
     </motion.a>
   );
 }
