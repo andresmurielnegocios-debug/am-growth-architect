@@ -487,7 +487,7 @@ function Plans() {
                 <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-gold font-bold mb-1.5">
                   <Zap className="w-3.5 h-3.5" /> Fondo de Optimización Creativa
                 </div>
-                <div className="text-sm text-foreground/90 font-semibold">+ $100.000 COP <span className="text-xs text-muted-foreground font-normal">(USD $29) · opcional</span></div>
+                <div className="text-sm text-foreground/90 font-semibold">+ $100.000 COP <span className="text-xs text-muted-foreground font-normal">(USD $29)</span></div>
                 <p className="text-[11px] text-muted-foreground leading-snug mt-1">
                   Reserva mensual para refrescar creativos cuando la estrategia lo requiere.
                 </p>
