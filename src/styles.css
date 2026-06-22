@@ -34,7 +34,7 @@
   --color-cream: var(--cream);
   --color-cream-soft: var(--cream-soft);
   --font-sans: "Hanken Grotesk", system-ui, sans-serif;
-  --font-display: "Bricolage Grotesque", "Hanken Grotesk", system-ui, sans-serif;
+  --font-display: "Sora", "Hanken Grotesk", system-ui, sans-serif;
 }
 
 :root {
