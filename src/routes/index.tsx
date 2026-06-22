@@ -72,7 +72,9 @@ function Nav() {
     return () => { window.removeEventListener("scroll", h); window.removeEventListener("resize", h); };
   }, []);
   const textColor = dark ? "text-cream" : "text-ink";
-  const ctaBg = dark ? "bg-cream text-ink hover:bg-cream/90" : "bg-ink text-cream hover:bg-ink/90";
+  const ctaBg = dark
+    ? "bg-cream text-ink hover:bg-cream/90"
+    : "bg-white text-ink border border-ink/15 hover:bg-ink/5";
   return (
     <motion.nav
       initial={{ y: -40, opacity: 0 }}
@@ -86,10 +88,22 @@ function Nav() {
             : "bg-cream"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-6 h-auto md:h-16 flex flex-col md:flex-row items-center justify-between gap-3 py-3 md:py-0">
-        <a href="#inicio" className={`flex items-center gap-2 ${textColor}`}>
-          <span className="font-display font-extrabold text-xl tracking-tightest">muriel<span className="text-gold">.</span></span>
-        </a>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 h-auto md:h-20 flex flex-col md:flex-row items-center justify-between gap-3 py-3 md:py-0">
+        <motion.a
+          href="#inicio"
+          className={`flex items-center gap-2 ${textColor}`}
+          whileHover={{ scale: 1.04 }}
+          transition={{ type: "spring", stiffness: 300, damping: 18 }}
+        >
+          <motion.img
+            src={logoAsset.url}
+            alt="Andrés Muriel"
+            className={`h-12 md:h-14 w-auto object-contain drop-shadow-[0_2px_8px_rgba(212,175,55,0.35)] ${dark ? "" : "mix-blend-multiply"}`}
+            initial={{ opacity: 0, rotate: -8, scale: 0.8 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+          />
+        </motion.a>
         <div className={`flex flex-wrap items-center justify-center gap-x-5 gap-y-1 md:gap-9 text-[12px] md:text-[13px] ${textColor} font-semibold`}>
           {[
             ["Inicio", "#inicio"],
@@ -104,9 +118,15 @@ function Nav() {
             </a>
           ))}
         </div>
-        <a href={WA} target="_blank" rel="noreferrer" className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition ${ctaBg}`}>
+        <motion.a
+          href={WA} target="_blank" rel="noreferrer"
+          whileHover={{ scale: 1.06, y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 16 }}
+          className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition ${ctaBg}`}
+        >
           Hablar conmigo <ArrowUpRight className="w-3.5 h-3.5" />
-        </a>
+        </motion.a>
       </div>
     </motion.nav>
   );
