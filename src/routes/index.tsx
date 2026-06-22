@@ -742,13 +742,23 @@ function FloatingWA() {
     <motion.a
       href={WA} target="_blank" rel="noreferrer"
       aria-label="Hablar por WhatsApp"
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 15 }}
-      whileHover={{ scale: 1.08 }}
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{
+        scale: [1, 1.08, 1],
+        opacity: 1,
+        y: [0, -6, 0],
+      }}
+      transition={{
+        scale: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
+        y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+        opacity: { duration: 0.6, delay: 1.2 },
+      }}
+      whileHover={{ scale: 1.18, rotate: -8 }}
+      whileTap={{ scale: 0.9, rotate: 6 }}
       className="fixed bottom-6 right-6 z-50 bg-white text-black w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(0,0,0,0.4)] border border-black/5"
     >
-      <WhatsAppIcon className="w-7 h-7" />
+      <span aria-hidden className="absolute inset-0 rounded-full bg-white animate-ping opacity-40" />
+      <WhatsAppIcon className="w-7 h-7 relative" />
     </motion.a>
   );
 }
