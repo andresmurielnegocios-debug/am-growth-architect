@@ -731,7 +731,7 @@ function Footer() {
           <p className="font-display font-extrabold tracking-tightest text-4xl md:text-6xl text-foreground/90">
             "Likes <span className="text-foreground/30 line-through">no pagan</span>. Clientes <span className="text-gold">sí</span>."
           </p>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 transition">
+          <a href="https://www.instagram.com/andresmuriel.co/" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/5 transition">
             <Instagram className="w-4 h-4" />
           </a>
         </div>
