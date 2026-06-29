@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
   component: Page,
 });
 
-const WA = "https://wa.me/573244482657";
+const WA = "https://wa.me/573239388997";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -344,11 +344,11 @@ function About() {
 
 /* ───────────────── SERVICES ───────────────── */
 const services = [
-  { icon: Calendar, name: "Booking Pro™", sub: "Sistema profesional de agendamiento", price: "$600.000 COP", priceUsd: "USD $176", note: "Mantenimiento: $65.000/mes", features: ["Reservas online", "Confirmaciones automáticas", "Gestión de horarios", "Optimizado móviles"] },
-  { icon: LayoutTemplate, name: "Landing Page", sub: "Página profesional de conversión", price: "$550.000 COP", priceUsd: "USD $162", features: ["Diseño profesional", "Copywriting persuasivo", "Integración WhatsApp", "Optimizada para conversión"] },
-  { icon: Video, name: "Authority Video™", sub: "Video estratégico de autoridad", price: "$430.000 COP", priceUsd: "USD $126", features: ["Guion estratégico", "Estructura de embudo", "Grabación & edición pro", "Copy persuasivo"] },
-  { icon: Edit3, name: "Edición de video profesional para redes", sub: "Edición profesional para redes sociales", price: "$150.000 COP", priceUsd: "USD $44", features: ["Audio + música libre", "Subtítulos", "Cortes dinámicos", "Formato adaptable"] },
-  { icon: Sparkles, name: "Creator Elite™", sub: "Edición de video premium de alto impacto", price: "$250.000 COP", priceUsd: "USD $74", features: ["Diseño sonoro", "Subtítulos dinámicos", "B-Rolls + efectos", "Retención optimizada"] },
+  { icon: Calendar, name: "Booking Pro™", sub: "Sistema profesional de agendamiento para barberías, negocios de comidas rápidas, salones de belleza y consultorios odontológicos. Incluye un video profesional premium para capacitar a tus clientes.", price: "$700.000 COP", priceUsd: "USD $176", note: "Mantenimiento mensual: $60.000 COP", features: ["Reservas online", "Confirmaciones automáticas", "Gestión de horarios", "Optimizado móviles"] },
+  { icon: LayoutTemplate, name: "Landing Page", sub: "Página profesional de alta conversión para promocionar tus productos o servicios y generar más clientes.", price: "$600.000 COP", priceUsd: "USD $162", features: ["Diseño profesional", "Copywriting persuasivo", "Integración WhatsApp", "Optimizada para conversión"] },
+  { icon: Video, name: "Authority Video™", sub: "Video estratégico profesional para redes sociales.", price: "$200.000 COP", priceUsd: "USD $126", features: ["Guion estratégico", "Estructura de embudo", "Grabación & edición pro", "Copy persuasivo"] },
+  { icon: Edit3, name: "Edición de video básico", sub: "Edición profesional para redes sociales", price: "$150.000 COP", priceUsd: "USD $44", features: ["Audio + música libre", "Subtítulos", "Cortes dinámicos", "Formato adaptable"] },
+  { icon: Sparkles, name: "Creator Elite™", sub: "Edición de video premium de alto impacto", price: "$260.000 COP", priceUsd: "USD $74", features: ["Diseño sonoro", "Subtítulos dinámicos", "B-Rolls + efectos", "Retención optimizada"] },
   { icon: Film, name: "Creator Elite™ Long", sub: "Edición de videos de más de 4 minutos", price: "$320.000 COP", priceUsd: "USD $94", features: ["Edición avanzada", "Narrativa optimizada", "Diseño sonoro", "Retención sostenida"] },
   { icon: Bot, name: "WhatsApp Sales™", sub: "Automatización de WhatsApp Business para clientes de alto impacto", price: "Según alcance", priceUsd: "", features: ["Automatización respuestas", "Captación prospectos", "Flujos seguimiento", "Integración campañas"] },
 ];
@@ -702,7 +702,7 @@ function Footer() {
           <div>
             <div className="text-xs uppercase tracking-[0.25em] text-foreground/60 mb-4">Contacto</div>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href={WA} className="hover:text-gold">+57 324 448 2657</a></li>
+              <li><a href={WA} className="hover:text-gold">+57 323 938 8997</a></li>
               <li>WhatsApp directo</li>
               <li>Cali · Colombia</li>
             </ul>
